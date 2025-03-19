@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#ffffff">
+
+    <!-- ViewPager2 để hiển thị các Fragment item -->
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.441"
+        app:layout_constraintWidth_percent="0.9" />
+
+    <ImageView
+        android:id="@+id/on_bg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/on_background_2"
+        android:scaleType="centerCrop"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/list_dot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/viewPager"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_marginTop="50dp">
+
+    <View
+        android:id="@+id/dot1"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_margin="4dp"
+        android:background="@drawable/bg_dot" />
+
+    <View
+        android:id="@+id/dot2"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_margin="4dp"
+        android:background="@drawable/bg_dot" />
+
+    <View
+        android:id="@+id/dot3"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_margin="4dp"
+        android:background="@drawable/bg_dot" />
+</LinearLayout>
+
+<LinearLayout
+android:id="@+id/onBtn"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+android:gravity="center"
+app:layout_constraintTop_toBottomOf="@id/list_dot"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+android:layout_marginTop="50dp"
+    >
+
+<Button
+    android:id="@+id/btnSkip"
+    android:layout_width="140dp"
+    android:layout_height="60dp"
+    android:layout_marginRight="10dp"
+    android:text="Skip"
+    android:background="@android:color/transparent"
+    android:textColor="@color/primary_50"
+    android:textSize="16sp" />
+
+<Button
+    android:id="@+id/btnNext"
+    android:layout_width="140dp"
+    android:layout_height="66dp"
+    android:layout_marginLeft="10dp"
+    android:text="Next"
+    android:textSize="16sp" />
+</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>

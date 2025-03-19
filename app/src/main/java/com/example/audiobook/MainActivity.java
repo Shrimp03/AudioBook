@@ -39,5 +39,6 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.fragment_container, new AudiobookListFragment())
                 .commit();
+        getSupportActionBar().hide();
     }
 }

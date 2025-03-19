@@ -22,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
 
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(SplashActivity.this,
-                    sessionManager.isLoggedIn() ? MainActivity.class : LoginActivity.class);
+                    sessionManager.isLoggedIn() ? MainActivity.class : OnBoardingActivity.class);
             startActivity(intent);
             finish();
         }, 2000);
