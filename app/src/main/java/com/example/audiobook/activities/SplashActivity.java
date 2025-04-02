@@ -3,6 +3,7 @@ package com.example.audiobook.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,8 +22,10 @@ public class SplashActivity extends AppCompatActivity {
         sessionManager = new SessionManager(this);
 
         new Handler().postDelayed(() -> {
+            boolean isLoggedIn = sessionManager.isLoggedIn();
+            Log.d("SplashActivity", "Is Logged In: " + isLoggedIn);
             Intent intent = new Intent(SplashActivity.this,
-                    sessionManager.isLoggedIn() ? MainActivity.class : OnBoardingActivity.class);
+                    isLoggedIn ? MainActivity.class : OnBoardingActivity.class);
             startActivity(intent);
             finish();
         }, 2000);

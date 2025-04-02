@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.example.audiobook.MainActivity;
 import com.example.audiobook.R;
 import com.example.audiobook.adapters.OnBoardingAdapter;
 
@@ -76,7 +78,7 @@ public class OnBoardingActivity extends AppCompatActivity {
                 if (currentItem < adapter.getItemCount() - 1) {
                     viewPager.setCurrentItem(currentItem + 1);
                 } else {
-                    Intent intent = new Intent(OnBoardingActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(OnBoardingActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -87,7 +89,7 @@ public class OnBoardingActivity extends AppCompatActivity {
         findViewById(R.id.btnSkip).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OnBoardingActivity.this, LoginActivity.class);
+                Intent intent = new Intent(OnBoardingActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }

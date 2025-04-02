@@ -21,7 +21,6 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".activities.OnBoardingActivity"/>
         <activity android:name=".activities.LoginActivity"/>
-        <activity android:name=".activities.HomeActivity"/>
     </application>
 
 </manifest>

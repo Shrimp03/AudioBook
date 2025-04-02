@@ -20,9 +20,9 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
             int itemId = item.getItemId();
-            if (itemId == R.id.nav_list) {
+            if (itemId == R.id.nav_home) {
                 selectedFragment = new AudiobookListFragment();
-            } else if (itemId == R.id.nav_player) {
+            } else if (itemId == R.id.nav_search) {
                 selectedFragment = new PlayerFragment();
             }
 
@@ -39,6 +39,6 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.fragment_container, new AudiobookListFragment())
                 .commit();
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
     }
 }
