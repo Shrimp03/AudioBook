@@ -1,19 +1,26 @@
 package com.example.audiobook.repository;
 
+import static com.example.audiobook.api.APIconst.BASE_URL;
 
-import androidx.lifecycle.MutableLiveData;
-import com.example.audiobook.models.Audiobook;
-import java.util.ArrayList;
+import com.example.audiobook.api.CoreAppInterface;
+import com.example.audiobook.models.Category;
 import java.util.List;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AudiobookRepository {
-    public MutableLiveData<List<Audiobook>> getAudiobooks() {
-        MutableLiveData<List<Audiobook>> audiobookData = new MutableLiveData<>();
-        // Giả lập dữ liệu (thay bằng API thực tế)
-        List<Audiobook> audiobooks = new ArrayList<>();
-        audiobooks.add(new Audiobook("Book 1", "android.resource://com.example.audiobookapp/raw/sample_audio"));
-        audiobooks.add(new Audiobook("Book 2", "android.resource://com.example.audiobookapp/raw/sample_audio"));
-        audiobookData.setValue(audiobooks);
-        return audiobookData;
+    private CoreAppInterface coreAppInterface;
+
+    public AudiobookRepository() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        coreAppInterface = retrofit.create(CoreAppInterface.class);
+    }
+
+    public Call<List<Category>> getAllCategories() {
+        return coreAppInterface.getAllCategory();
     }
 }

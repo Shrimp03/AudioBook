@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 
 import com.example.audiobook.fragments.AudiobookListFragment;
+import com.example.audiobook.fragments.HomeFragment;
 import com.example.audiobook.fragments.PlayerFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment selectedFragment = null;
             int itemId = item.getItemId();
             if (itemId == R.id.nav_home) {
-                selectedFragment = new AudiobookListFragment();
+                selectedFragment = new HomeFragment();
             } else if (itemId == R.id.nav_search) {
                 selectedFragment = new PlayerFragment();
             }
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container, new AudiobookListFragment())
+                .replace(R.id.fragment_container, new HomeFragment())
                 .commit();
 //        getSupportActionBar().hide();
     }
