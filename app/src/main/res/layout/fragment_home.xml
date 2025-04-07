@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- fragment_home.xml -->
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+<!--<androidx.core.widget.-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:fillViewport="true">-->
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -44,54 +44,51 @@
             />
     </LinearLayout>
 
-    <LinearLayout
-        app:layout_constraintTop_toBottomOf="@+id/home_header"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/home_cate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:paddingEnd="24dp"
         android:paddingTop="16dp"
-        >
-        <LinearLayout
-            app:layout_constraintTop_toBottomOf="@+id/home_cate"
-            android:id="@+id/home_cate_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#010104"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                android:text="Categories"
-                />
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/see_more"
-                android:textSize="14dp"
-                android:textColor="@color/primary_50"
-                />
-        </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/home_header">
 
+        <!-- Title: "Categories" -->
+        <TextView
+            android:id="@+id/home_cate_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categories"
+            android:textColor="#010104"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- See more -->
+        <TextView
+            android:id="@+id/home_cate_see_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/see_more"
+            android:textSize="14sp"
+            android:textColor="@color/primary_50"
+            app:layout_constraintTop_toTopOf="@+id/home_cate_title"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView
-            app:layout_constraintTop_toBottomOf="@+id/home_cate_title"
             android:id="@+id/category_recycler_view"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@android:color/darker_gray"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:nestedScrollingEnabled="false" />
+            android:background="@android:color/transparent"
+            app:layout_constraintTop_toBottomOf="@+id/home_cate_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <LinearLayout
         app:layout_constraintTop_toBottomOf="@+id/home_cate"
         android:id="@+id/home_recommend"
@@ -236,4 +233,4 @@
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+<!--</androidx.core.widget.>-->

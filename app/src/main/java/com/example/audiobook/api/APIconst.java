@@ -5,4 +5,9 @@ public class APIconst {
 
     /// uri
     public static final String GET_ALL_CATE = BASE_URL + "/api/category/getAll";
+    public static final String GET_ALL_AUDIO_BOOKS = BASE_URL + "/api/audiobooks/getAll";
+
+    public static final String GET_AUDIO_BOOKS_BY_TITLE = BASE_URL + "api/audiobooks/title";
+    public static final String GET_AUDIO_BOOKS_BY_ID = BASE_URL + "api/audiobooks/category/{categoryId}";
+    public static final String GET_AUDIO_BOOKS_BY_USER = BASE_URL + "api/audiobooks/user/{userId}";
 }
