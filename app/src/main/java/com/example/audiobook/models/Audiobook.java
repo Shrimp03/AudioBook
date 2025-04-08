@@ -6,7 +6,6 @@ public class Audiobook {
     private UUID id;
     private String author;
     private String coverImage;
-    private String coverImageUrl;
     private String description;
     private int duration;
     private String femaleAudioUrl;
@@ -48,13 +47,6 @@ public class Audiobook {
         this.coverImage = coverImage;
     }
 
-    public String getCoverImageUrl() {
-        return coverImageUrl;
-    }
-
-    public void setCoverImageUrl(String coverImageUrl) {
-        this.coverImageUrl = coverImageUrl;
-    }
 
     public String getDescription() {
         return description;
@@ -150,7 +142,6 @@ public class Audiobook {
                 "id=" + id +
                 ", author='" + author + '\'' +
                 ", coverImage='" + coverImage + '\'' +
-                ", coverImageUrl='" + coverImageUrl + '\'' +
                 ", description='" + description + '\'' +
                 ", duration=" + duration +
                 ", femaleAudioUrl='" + femaleAudioUrl + '\'' +

@@ -1,14 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="160dp"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    android:layout_marginRight="20dp"
+    android:background="@android:color/transparent"
+    android:backgroundTint="@android:color/transparent"
+    app:cardElevation="0dp">
 
-    <TextView
-        android:id="@+id/textview_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textSize="18sp"/>
+        android:orientation="vertical"
+        android:background="@android:color/transparent"
+        android:backgroundTint="@android:color/transparent"
+
+        >
+
+        <ImageView
+            android:id="@+id/item_audio_img"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/item_audio_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:textSize="16sp"
+            android:textColor="@color/Neutral_80"
+            android:text="Title"
+            android:background="@null"
+
+            />
+    </LinearLayout>
+
 </androidx.cardview.widget.CardView>

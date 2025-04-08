@@ -11,7 +11,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.audiobook.R;
+import com.example.audiobook.adapters.AudiobookAdapter;
 import com.example.audiobook.adapters.CategoryAdapter;
+import com.example.audiobook.models.ApiResponse;
+import com.example.audiobook.models.Audiobook;
 import com.example.audiobook.models.Category;
 import com.example.audiobook.repository.AudiobookRepository;
 import java.util.ArrayList;
@@ -23,7 +26,9 @@ import retrofit2.Response;
 public class HomeFragment extends Fragment {
     private static final String TAG = "HomeFragment";
     private RecyclerView categoryRecyclerView;
+    private RecyclerView recommendAudioBookRecycleView;
     private CategoryAdapter categoryAdapter;
+    private AudiobookAdapter audiobookAdapter;
     private AudiobookRepository repository;
 
     @Nullable
@@ -33,6 +38,8 @@ public class HomeFragment extends Fragment {
 
         // Khởi tạo RecyclerView
         categoryRecyclerView = view.findViewById(R.id.category_recycler_view);
+        recommendAudioBookRecycleView = view.findViewById(R.id.recommend_recycler_view);
+        recommendAudioBookRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         categoryAdapter = new CategoryAdapter(new ArrayList<>(), category -> {
             // Gọi sang Fragment hiển thị audiobook theo category
@@ -50,12 +57,19 @@ public class HomeFragment extends Fragment {
                     .addToBackStack(null)
                     .commit();
         });
+        audiobookAdapter = new AudiobookAdapter(new ArrayList<>(), new AudiobookAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Audiobook audiobook) {
+
+            }
+        });
         categoryRecyclerView.setAdapter(categoryAdapter);
+        recommendAudioBookRecycleView.setAdapter(audiobookAdapter);
 
         // Gọi API
         repository = new AudiobookRepository();
         fetchCategories();
-
+        fetchAudioBooks();
         return view;
     }
 
@@ -75,6 +89,24 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Category>> call, Throwable t) {
+                Log.e(TAG, "API error: " + t.getMessage());
+            }
+        });
+    }
+
+    private void fetchAudioBooks() {
+        repository.getAllAudioBooks().enqueue(new Callback<ApiResponse>() {
+            @Override
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                if(response.isSuccessful() && response.body() != null){
+                    List<Audiobook> audiobooks = response.body().getData().getContent();
+                    Log.d(TAG, "AudioBooks loaded: " + audiobooks.size());
+                    audiobookAdapter.updateAudioBooks(audiobooks);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
                 Log.e(TAG, "API error: " + t.getMessage());
             }
         });
