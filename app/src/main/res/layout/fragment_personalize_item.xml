@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Hình ảnh cho trang Finish -->
+    <ImageView
+        android:id="@+id/finishImage"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        android:src="@drawable/finish_personalize"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp" />
+
+    <!-- Tiêu đề phụ cho trang Intro (Welcome !) -->
+    <TextView
+        android:id="@+id/introSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome !"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#FF6200"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/finishImage"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp" />
+
+    <!-- Tiêu đề chính cho trang Intro (Find what you are looking for) -->
+    <TextView
+        android:id="@+id/introTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Find what you are looking for"
+        android:textSize="32sp"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:textStyle="bold"
+        android:textColor="#1E3A8A"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/introSubtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- Mô tả cho trang Intro (By personalize your account...) -->
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="By personalize your account, we can help you to find what you like."
+        android:textSize="16sp"
+        android:textColor="#666666"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/introTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- Tiêu đề phụ cho trang Finish (Congratulations !) -->
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Congratulations !"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#FF6200"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/finishImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- Tiêu đề chính cho trang Finish (Hoàn tất!) -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chọn danh mục yêu thích"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#1E3A8A"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/subtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp" />
+
+    <!-- Mô tả cho trang Finish (Bạn đã chọn xong các danh mục yêu thích...) -->
+    <TextView
+        android:id="@+id/finishDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bạn đã chọn xong các danh mục yêu thích. Bắt đầu trải nghiệm ngay!"
+        android:textSize="16sp"
+        android:textColor="#666666"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- RecyclerView cho danh sách category (trang 2) -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
