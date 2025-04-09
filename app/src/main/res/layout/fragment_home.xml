@@ -134,7 +134,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         app:layout_constraintTop_toBottomOf="@+id/home_recommend"
         android:id="@+id/home_best"
         android:layout_width="match_parent"
@@ -143,33 +143,40 @@
         android:paddingEnd="16dp"
         android:paddingTop="16dp"
         >
-        <LinearLayout
-            app:layout_constraintTop_toBottomOf="@+id/home_best"
+        <TextView
             android:id="@+id/home_best_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#010104"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                android:text="Best Seller"
-                />
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/see_more"
-                android:textSize="14dp"
-                android:textColor="@color/primary_50"
-                />
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Best Seller"
+            android:textColor="#010104"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- See more -->
+        <TextView
+            android:id="@+id/home_best_see_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/see_more"
+            android:textSize="14sp"
+            android:textColor="@color/primary_50"
+            app:layout_constraintTop_toTopOf="@+id/home_best_title"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/best_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintTop_toBottomOf="@+id/home_best_see_more"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
         app:layout_constraintTop_toBottomOf="@+id/home_best"
         android:id="@+id/home_release"
         android:layout_width="match_parent"
@@ -178,34 +185,41 @@
         android:paddingEnd="16dp"
         android:paddingTop="16dp"
         >
-        <LinearLayout
-            app:layout_constraintTop_toBottomOf="@+id/home_best"
+        <TextView
             android:id="@+id/home_release_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#010104"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                android:text="New Releases"
-                />
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/see_more"
-                android:textSize="14dp"
-                android:textColor="@color/primary_50"
-                />
-        </LinearLayout>
-    </LinearLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Release"
+            android:textColor="#010104"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <LinearLayout
+        <!-- See more -->
+        <TextView
+            android:id="@+id/home_release_see_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/see_more"
+            android:textSize="14sp"
+            android:textColor="@color/primary_50"
+            app:layout_constraintTop_toTopOf="@+id/home_release_title"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/release_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintTop_toBottomOf="@+id/home_release_see_more"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         app:layout_constraintTop_toBottomOf="@+id/home_release"
         android:id="@+id/home_treding"
         android:layout_width="match_parent"
@@ -214,32 +228,39 @@
         android:paddingEnd="16dp"
         android:paddingTop="16dp"
         >
-        <LinearLayout
-            app:layout_constraintTop_toBottomOf="@+id/home_treding"
+        <TextView
             android:id="@+id/home_trending_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#010104"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                android:text="Trending Now"
-                />
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/see_more"
-                android:textSize="14dp"
-                android:textColor="@color/primary_50"
-                />
-        </LinearLayout>
-    </LinearLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trending Now"
+            android:textColor="#010104"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- See more -->
+        <TextView
+            android:id="@+id/home_trending_see_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/see_more"
+            android:textSize="14sp"
+            android:textColor="@color/primary_50"
+            app:layout_constraintTop_toTopOf="@+id/home_trending_title"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/trending_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintTop_toBottomOf="@+id/home_trending_see_more"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 <!--</androidx.core.widget.>-->
