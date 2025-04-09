@@ -32,12 +32,12 @@ public class PersonalizeActivity extends AppCompatActivity implements Personaliz
 
         // Tạo dữ liệu mẫu
         List<Category> categories = new ArrayList<>();
-        categories.add(new Category(1, "Thể thao"));
-        categories.add(new Category(2, "Âm nhạc"));
-        categories.add(new Category(3, "Công nghệ"));
-        categories.add(new Category(4, "Du lịch"));
-        categories.add(new Category(5, "Sách"));
-        categories.add(new Category(6, "Phim"));
+        categories.add(new Category("1", "Thể thao"));
+        categories.add(new Category("2", "Âm nhạc"));
+        categories.add(new Category("3", "Công nghệ"));
+        categories.add(new Category("4", "Du lịch"));
+        categories.add(new Category("5", "Sách"));
+        categories.add(new Category("6", "Phim"));
 
         // Kiểm tra danh sách categories
         if (categories.isEmpty()) {
