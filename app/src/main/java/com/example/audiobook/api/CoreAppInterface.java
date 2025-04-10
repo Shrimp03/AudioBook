@@ -2,6 +2,7 @@ package com.example.audiobook.api;
 
 import com.example.audiobook.dto.LoginDTO;
 import com.example.audiobook.dto.RegisterDTO;
+import com.example.audiobook.models.ApiResponse;
 import com.example.audiobook.models.Audiobook;
 import com.example.audiobook.models.Category;
 import com.example.audiobook.response.RegisterResponse;
@@ -32,7 +33,7 @@ public interface CoreAppInterface {
     Call<UserLoginResponse> loginAccount(@Body LoginDTO loginDTO);
 
     @GET(APIconst.GET_ALL_AUDIO_BOOKS)
-    Call<List<Audiobook>> getAllAudioBooks();
+    Call<ApiResponse> getAllAudioBooks();
 
     @GET(APIconst.GET_AUDIO_BOOKS_BY_TITLE)
     Call<List<Audiobook>> getAudioBooksByTitle(@Query("title") String title);

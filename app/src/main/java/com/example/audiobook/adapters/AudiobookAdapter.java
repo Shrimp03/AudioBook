@@ -1,11 +1,16 @@
 package com.example.audiobook.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.example.audiobook.R;
+import com.example.audiobook.api.APIconst;
 import com.example.audiobook.models.Audiobook;
 import java.util.List;
 
@@ -18,7 +23,7 @@ public class AudiobookAdapter extends RecyclerView.Adapter<AudiobookAdapter.View
         this.listener = listener;
     }
 
-    public void updateList(List<Audiobook> newList) {
+    public void updateAudioBooks(List<Audiobook> newList) {
         this.audiobookList = newList;
         notifyDataSetChanged();
     }
@@ -33,7 +38,14 @@ public class AudiobookAdapter extends RecyclerView.Adapter<AudiobookAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Audiobook audiobook = audiobookList.get(position);
-        holder.titleTextView.setText(audiobook.getTitle());
+        holder.itemAudioTitle.setText(audiobook.getTitle());
+        String imageUrl = APIconst.BASE_URL + "/" +  audiobook.getCoverImage();
+        Log.d("ImageUrl: ", imageUrl);
+        Glide.with(holder.itemView.getContext())
+                .load(imageUrl) // URL từ coverImage
+                .placeholder(R.drawable.home) // Hình ảnh hiển thị khi đang tải
+                .error(R.drawable.home) // Hình ảnh hiển thị nếu lỗi
+                .into(holder.itemAudioImg);
         holder.itemView.setOnClickListener(v -> listener.onItemClick(audiobook));
     }
 
@@ -43,11 +55,13 @@ public class AudiobookAdapter extends RecyclerView.Adapter<AudiobookAdapter.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView titleTextView;
+        TextView itemAudioTitle;
+        ImageView itemAudioImg;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            titleTextView = itemView.findViewById(R.id.textview_title);
+            itemAudioTitle = itemView.findViewById(R.id.item_audio_text);
+            itemAudioImg = itemView.findViewById(R.id.item_audio_img);
         }
     }
 
