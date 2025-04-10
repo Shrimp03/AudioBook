@@ -4,20 +4,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.audiobook.MainActivity;
 import com.example.audiobook.R;
 import com.example.audiobook.helper.SessionManager;
+import com.example.audiobook.response.MessageKey;
 import com.example.audiobook.viewmodel.LoginViewModel;
+import com.example.audiobook.viewmodel.RegisterViewModel;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText editTextUsername, editTextPassword;
     private Button buttonLogin;
-    private LoginViewModel viewModel;
+    private LoginViewModel loginViewModel;
+    private TextView directToRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,32 +32,39 @@ public class LoginActivity extends AppCompatActivity {
         editTextUsername = findViewById(R.id.edittext_username);
         editTextPassword = findViewById(R.id.edittext_password);
         buttonLogin = findViewById(R.id.button_login);
-
-        viewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
-            @Override
-            public <T extends androidx.lifecycle.ViewModel> T create(Class<T> modelClass) {
-                return (T) new LoginViewModel(new SessionManager(LoginActivity.this));
-            }
-        }).get(LoginViewModel.class);
-
-        if (viewModel.isLoggedIn()) {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
-        }
-
+        directToRegister = findViewById(R.id.redirect_to_register);
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         buttonLogin.setOnClickListener(v -> {
-            String username = editTextUsername.getText().toString();
-            String password = editTextPassword.getText().toString();
-            viewModel.login(username, password);
+            String email = editTextUsername.getText().toString().trim();
+            String password = editTextPassword.getText().toString().trim();
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Please enter both email and password", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            loginViewModel.loginUser(email, password);
+
         });
 
-        viewModel.getLoginResult().observe(this, success -> {
-            if (success != null && success) {
-                startActivity(new Intent(this, MainActivity.class));
-                finish();
-            } else {
-                Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show();
+        LoginViewModel.toast.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String message) {
+                if (message != null && !message.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
+                    if(message.equals(MessageKey.LOGIN_USER_SUCCESSFULLY)){
+
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+
+                    }
+                }
             }
+        });
+
+
+        directToRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
     }
 }
