@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.audiobook.api.CoreAppInterface;
-import com.example.audiobook.dto.RegisterDTO;
-import com.example.audiobook.response.RegisterResponse;
+import com.example.audiobook.dto.request.RegisterDTO;
+import com.example.audiobook.dto.response.RegisterResponse;
 import java.util.Objects;
 import retrofit2.Call;
 import retrofit2.Callback;

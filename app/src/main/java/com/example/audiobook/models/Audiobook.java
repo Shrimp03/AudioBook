@@ -15,7 +15,7 @@ public class Audiobook {
     private String maleAudioUrlFull;
     private int publishedYear;
     private String title;
-    private UUID categoryId;
+    private Category categoryResponse;
     private UUID userId;
 
     // Constructor
@@ -120,12 +120,12 @@ public class Audiobook {
         this.title = title;
     }
 
-    public UUID getCategoryId() {
-        return categoryId;
+    public Category getCategoryResponse() {
+        return categoryResponse;
     }
 
-    public void setCategoryId(UUID categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryResponse(Category categoryResponse) {
+        this.categoryResponse = categoryResponse;
     }
 
     public UUID getUserId() {
@@ -151,7 +151,7 @@ public class Audiobook {
                 ", maleAudioUrlFull='" + maleAudioUrlFull + '\'' +
                 ", publishedYear=" + publishedYear +
                 ", title='" + title + '\'' +
-                ", categoryId=" + categoryId +
+                ", categoryId=" + categoryResponse.getId() +
                 ", userId=" + userId +
                 '}';
     }

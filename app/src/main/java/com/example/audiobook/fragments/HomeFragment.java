@@ -17,19 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.audiobook.R;
 import com.example.audiobook.adapters.AudiobookAdapter;
 import com.example.audiobook.adapters.CategoryAdapter;
-import com.example.audiobook.models.Audiobook;
-import com.example.audiobook.models.Category;
 import com.example.audiobook.viewmodel.HomeViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HomeFragment extends Fragment {
     private static final String TAG = "HomeFragment";
     private RecyclerView categoryRecyclerView;
     private RecyclerView recommendAudioBookRecycleView;
     private CategoryAdapter categoryAdapter;
-    private AudiobookAdapter audiobookAdapter;
+    private AudiobookAdapter recommendAudioBookAdapter;
     private HomeViewModel homeViewModel;
 
     @Nullable
@@ -40,6 +37,7 @@ public class HomeFragment extends Fragment {
         // Khởi tạo RecyclerView
         categoryRecyclerView = view.findViewById(R.id.category_recycler_view);
         recommendAudioBookRecycleView = view.findViewById(R.id.recommend_recycler_view);
+        // Set layout
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recommendAudioBookRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
@@ -49,23 +47,40 @@ public class HomeFragment extends Fragment {
             bundle.putString("categoryId", category.getId());
             bundle.putString("categoryName", category.getName());
 
-            CategoryDetailFragment detailFragment = new CategoryDetailFragment();
-            detailFragment.setArguments(bundle);
+            CategoryDetailFragment categoryDetailFragment = new CategoryDetailFragment();
+            categoryDetailFragment.setArguments(bundle);
 
             requireActivity()
                     .getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, detailFragment)
+                    .replace(R.id.fragment_container, categoryDetailFragment)
                     .addToBackStack(null)
                     .commit();
         });
 
-        audiobookAdapter = new AudiobookAdapter(new ArrayList<>(), audiobook -> {
-            // Handle click nếu cần
+        recommendAudioBookAdapter = new AudiobookAdapter(new ArrayList<>(), audiobook -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("audiobookId", audiobook.getId().toString()); // Convert UUID to String
+            bundle.putString("title", audiobook.getTitle()); // Title
+            bundle.putString("author", audiobook.getAuthor()); // Author
+            bundle.putString("description", audiobook.getDescription()); // Description
+            bundle.putString("coverImage", audiobook.getCoverImage()); // Cover image URL
+            bundle.putString("categoryName", audiobook.getCategoryResponse().getName()); // CategoryName
+            bundle.putString("maleAudioUrl", audiobook.getMaleAudioUrl()); // Male Audio Url
+
+            AudioBookDetailFragment audioBookDetailFragment = new AudioBookDetailFragment();
+            audioBookDetailFragment.setArguments(bundle);
+
+            requireActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, audioBookDetailFragment)
+                    .addToBackStack(null)
+                    .commit();
         });
 
         categoryRecyclerView.setAdapter(categoryAdapter);
-        recommendAudioBookRecycleView.setAdapter(audiobookAdapter);
+        recommendAudioBookRecycleView.setAdapter(recommendAudioBookAdapter);
 
         // ViewModel
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
@@ -86,7 +101,7 @@ public class HomeFragment extends Fragment {
 
         homeViewModel.recommendedAudiobooks.observe(getViewLifecycleOwner(), audiobooks -> {
             Log.d(TAG, "Loaded audiobooks: " + audiobooks.size());
-            audiobookAdapter.updateAudioBooks(audiobooks);
+            recommendAudioBookAdapter.updateAudioBooks(audiobooks);
         });
 
         homeViewModel.error.observe(getViewLifecycleOwner(), errorMsg -> {

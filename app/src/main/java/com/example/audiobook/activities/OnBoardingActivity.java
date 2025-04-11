@@ -3,14 +3,12 @@ package com.example.audiobook.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.audiobook.MainActivity;
 import com.example.audiobook.R;
 import com.example.audiobook.adapters.OnBoardingAdapter;
 

@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import com.example.audiobook.response.MessageKey;
+import com.example.audiobook.dto.response.MessageKey;
 
 
 public class RegisterActivity extends AppCompatActivity {

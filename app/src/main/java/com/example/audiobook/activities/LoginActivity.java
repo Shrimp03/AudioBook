@@ -11,12 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.audiobook.MainActivity;
 import com.example.audiobook.R;
-import com.example.audiobook.helper.SessionManager;
-import com.example.audiobook.response.MessageKey;
+import com.example.audiobook.dto.response.MessageKey;
 import com.example.audiobook.viewmodel.LoginViewModel;
-import com.example.audiobook.viewmodel.RegisterViewModel;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText editTextUsername, editTextPassword;
