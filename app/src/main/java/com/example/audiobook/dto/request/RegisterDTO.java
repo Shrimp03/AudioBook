@@ -1,6 +1,4 @@
-package com.example.audiobook.dto;
-
-import java.time.LocalDate;
+package com.example.audiobook.dto.request;
 
 public class RegisterDTO {
     private String email;

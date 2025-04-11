@@ -1,10 +1,10 @@
 package com.example.audiobook.models;
 
-public class ApiResponse {
+public class ApiResponse<T> {
     private String status;
     private String message;
-    private Data data;
+    private T data;
 
     // Getters and setters
-    public Data getData() { return data; }
+    public T getData() { return data; }
 }

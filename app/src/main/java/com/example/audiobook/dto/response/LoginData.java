@@ -1,4 +1,4 @@
-package com.example.audiobook.response;
+package com.example.audiobook.dto.response;
 
 import java.io.Serializable;
 

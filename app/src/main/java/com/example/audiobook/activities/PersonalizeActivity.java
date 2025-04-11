@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
-import com.example.audiobook.MainActivity;
+
 import com.example.audiobook.R;
 import com.example.audiobook.adapters.PersonalizeAdapter;
 import com.example.audiobook.fragments.PersonalizeItemFragment;

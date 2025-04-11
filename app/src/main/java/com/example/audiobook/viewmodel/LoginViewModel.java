@@ -8,15 +8,11 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.audiobook.api.CoreAppInterface;
-import com.example.audiobook.dto.LoginDTO;
-import com.example.audiobook.helper.SessionManager;
-import com.example.audiobook.repository.UserRepository;
-import com.example.audiobook.response.UserLoginResponse;
+import com.example.audiobook.dto.request.LoginDTO;
+import com.example.audiobook.dto.response.UserLoginResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,7 +31,7 @@ public class LoginViewModel extends AndroidViewModel {
 
     public void loginUser(String email, String password) {
         LoginDTO loginDTO = new LoginDTO(email,password);
-       CoreAppInterface.coreAppInterface.loginAccount(loginDTO).enqueue(new Callback<UserLoginResponse>() {
+        CoreAppInterface.coreAppInterface.loginAccount(loginDTO).enqueue(new Callback<UserLoginResponse>() {
            @Override
            public void onResponse(@NonNull Call<UserLoginResponse> call, @NonNull Response<UserLoginResponse> response) {
                Log.d(TAG, "onResponse called."+ response);

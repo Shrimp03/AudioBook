@@ -1,11 +1,11 @@
-package com.example.audiobook;
+package com.example.audiobook.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 
-import com.example.audiobook.fragments.AudiobookListFragment;
+import com.example.audiobook.R;
 import com.example.audiobook.fragments.HomeFragment;
 import com.example.audiobook.fragments.PlayerFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

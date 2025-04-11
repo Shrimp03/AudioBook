@@ -2,13 +2,13 @@ package com.example.audiobook.models;
 
 import java.util.List;
 
-public class Data {
+public class PageResponse<T> {
     private int page;
     private int size;
     private int totalElements;
     private int totalPages;
-    private List<Audiobook> content;
+    private List<T> content;
 
     // Getters and setters
-    public List<Audiobook> getContent() { return content; }
+    public List<T> getContent() { return content; }
 }
