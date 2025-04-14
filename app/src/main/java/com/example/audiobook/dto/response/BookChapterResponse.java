@@ -20,4 +20,8 @@ public class BookChapterResponse {
     public Integer getChapterNumber() {
         return chapterNumber;
     }
+
+    public String getTextContent() {
+        return textContent;
+    }
 }

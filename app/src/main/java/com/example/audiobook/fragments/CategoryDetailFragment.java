@@ -16,6 +16,7 @@ import com.example.audiobook.R;
 public class CategoryDetailFragment extends Fragment {
 
     private String categoryId;
+
     private String categoryName;
 
     ImageView imageViewBack;
