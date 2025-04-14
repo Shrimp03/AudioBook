@@ -15,18 +15,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.audiobook.R;
-import com.example.audiobook.adapters.AudiobookAdapter;
+import com.example.audiobook.adapters.HomeAudioBookAdapter;
 import com.example.audiobook.adapters.CategoryAdapter;
 import com.example.audiobook.viewmodel.HomeViewModel;
 
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
+
     private static final String TAG = "HomeFragment";
+
     private RecyclerView categoryRecyclerView;
     private RecyclerView recommendAudioBookRecycleView;
     private CategoryAdapter categoryAdapter;
-    private AudiobookAdapter recommendAudioBookAdapter;
+    private HomeAudioBookAdapter recommendAudioBookAdapter;
     private HomeViewModel homeViewModel;
 
     @Nullable
@@ -40,7 +42,6 @@ public class HomeFragment extends Fragment {
         // Set layout
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recommendAudioBookRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-
         // Adapter
         categoryAdapter = new CategoryAdapter(new ArrayList<>(), category -> {
             Bundle bundle = new Bundle();
@@ -57,10 +58,9 @@ public class HomeFragment extends Fragment {
                     .addToBackStack(null)
                     .commit();
         });
-
-        recommendAudioBookAdapter = new AudiobookAdapter(new ArrayList<>(), audiobook -> {
+        recommendAudioBookAdapter = new HomeAudioBookAdapter(new ArrayList<>(), audiobook -> {
             Bundle bundle = new Bundle();
-            bundle.putString("audiobookId", audiobook.getId().toString()); // Convert UUID to String
+            bundle.putString("audioBookId", audiobook.getId().toString()); // Convert UUID to String
             bundle.putString("title", audiobook.getTitle()); // Title
             bundle.putString("author", audiobook.getAuthor()); // Author
             bundle.putString("description", audiobook.getDescription()); // Description
@@ -78,15 +78,15 @@ public class HomeFragment extends Fragment {
                     .addToBackStack(null)
                     .commit();
         });
-
+        // Set adapter
         categoryRecyclerView.setAdapter(categoryAdapter);
         recommendAudioBookRecycleView.setAdapter(recommendAudioBookAdapter);
 
-        // ViewModel
+        // Initialize ViewModel
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-
+        // Observe
         observeViewModel();
-
+        // Fetching
         homeViewModel.fetchCategories();
         homeViewModel.fetchRecommendedAudiobooks();
 

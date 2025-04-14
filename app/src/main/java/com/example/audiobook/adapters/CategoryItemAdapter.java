@@ -8,15 +8,16 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.audiobook.R;
 import com.example.audiobook.activities.PersonalizeActivity;
+import com.example.audiobook.dto.response.CategoryResponse;
 import com.example.audiobook.fragments.PersonalizeItemFragment;
-import com.example.audiobook.models.Category;
+
 import java.util.List;
 
 public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapter.ViewHolder> {
-    private List<Category> categories;
+    private List<CategoryResponse> categories;
     private PersonalizeItemFragment.CategorySelectionListener selectionListener;
 
-    public CategoryItemAdapter(List<Category> categories, PersonalizeItemFragment.CategorySelectionListener listener) {
+    public CategoryItemAdapter(List<CategoryResponse> categories, PersonalizeItemFragment.CategorySelectionListener listener) {
         this.categories = categories;
         this.selectionListener = listener;
     }
@@ -30,16 +31,18 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Category category = categories.get(position);
-        holder.categoryName.setText(category.getName());
-        holder.checkBox.setOnCheckedChangeListener(null); // Xóa listener cũ
-        // Kiểm tra trạng thái từ selectedCategories trong activity
-        holder.checkBox.setChecked(((PersonalizeActivity) holder.itemView.getContext()).getSelectedCategories().contains(category));
+        // Get by position
+        CategoryResponse categoryResponse = categories.get(position);
+        // Bind data
+        holder.categoryName.setText(categoryResponse.getName());
+        // Get check status
+        holder.checkBox.setChecked(((PersonalizeActivity) holder.itemView.getContext()).getSelectedCategories().contains(categoryResponse));
+        // Check listener
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                selectionListener.onCategorySelected(category);
+                selectionListener.onCategorySelected(categoryResponse);
             } else {
-                selectionListener.onCategoryDeselected(category);
+                selectionListener.onCategoryDeselected(categoryResponse);
             }
         });
     }

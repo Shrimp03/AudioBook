@@ -55,13 +55,11 @@ public class AudioBookDetailFragment extends Fragment {
         // Extract data from the Bundle
         Bundle arguments = getArguments();
         if (arguments != null) {
-            String audiobookId = arguments.getString("audiobookId");
             String title = arguments.getString("title");
             String author = arguments.getString("author");
             String description = arguments.getString("description");
             String coverImage = arguments.getString("coverImage");
             String categoryName = arguments.getString("categoryName");
-            String maleAudioUrl = arguments.getString("maleAudioUrl");
 
             // Map data to UI elements
             if (title != null) {
@@ -92,6 +90,7 @@ public class AudioBookDetailFragment extends Fragment {
                         .into(bookCover);
             }
 
+            // Play click listener
             playButton.setOnClickListener(v -> {
                 // Navigate to PlayerFragment with audiobook data
                 PlayerFragment playerFragment = new PlayerFragment();
@@ -100,9 +99,23 @@ public class AudioBookDetailFragment extends Fragment {
                     playerFragment.show(getActivity().getSupportFragmentManager(), "PlayerFragment");
                 }
             });
+
+            // Read click listener
+            readButton.setOnClickListener(v -> {
+                // Navigate to ChapterFragment and replace the current fragment
+                BookChapterFragment bookChapterFragment = new BookChapterFragment();
+                bookChapterFragment.setArguments(arguments);
+                if (getActivity() != null) {
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragment_container, bookChapterFragment)
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
         }
 
-        // Set click listeners
+        // Back click listeners
         backButton.setOnClickListener(v -> {
             // Navigate back (pop the fragment from the back stack)
             if (getActivity() != null) {
@@ -110,17 +123,12 @@ public class AudioBookDetailFragment extends Fragment {
             }
         });
 
+        // Menu click listener
         menuButton.setOnClickListener(v -> {
             // Show a menu (e.g., using a PopupMenu)
             // For now, we'll just log a message
             // You can implement a PopupMenu here
             android.util.Log.d("AudiobookDetail", "Three-dot menu clicked");
-        });
-
-
-        readButton.setOnClickListener(v -> {
-            // Handle read button click (e.g., open the book in a reader)
-            android.util.Log.d("AudiobookDetail", "Read button clicked");
         });
 
         seeMore.setOnClickListener(v -> {

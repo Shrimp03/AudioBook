@@ -1,5 +1,6 @@
 package com.example.audiobook.adapters;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -7,27 +8,30 @@ import com.example.audiobook.fragments.OnBoardingItemFragment;
 
 public class OnBoardingAdapter extends FragmentStateAdapter {
 
-    public OnBoardingAdapter(FragmentActivity fragmentActivity) {
+    private static final int PAGE_COUNT = 3;
+    private static final String[] TITLES = {"Item 1", "Item 2", "Item 3"};
+    private static final String[] DESCRIPTIONS = {"hello", "hello2", "hello3"};
+    private static final String[] IMAGE_RES_NAMES = {"on_boarding_1", "on_boarding_2", "on_boarding_3"};
+
+    public OnBoardingAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return PAGE_COUNT;
     }
 
+    @NonNull
     @Override
     public Fragment createFragment(int position) {
-        // Trả về Fragment cho mỗi item
-        switch (position) {
-            case 0:
-                return OnBoardingItemFragment.newInstance("Item 1", "hello", "on_boarding_1");
-            case 1:
-                return OnBoardingItemFragment.newInstance("Item 2", "hello2", "on_boarding_2");
-            case 2:
-                return OnBoardingItemFragment.newInstance("Item 3", "hello3", "on_boarding_3");
-            default:
-                throw new IllegalStateException("Invalid position");
+        if (position < 0 || position >= PAGE_COUNT) {
+            throw new IllegalArgumentException("Invalid position: " + position);
         }
+        return OnBoardingItemFragment.newInstance(
+                TITLES[position],
+                DESCRIPTIONS[position],
+                IMAGE_RES_NAMES[position]
+        );
     }
 }

@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.audiobook.R;
 import com.example.audiobook.adapters.CategoryItemAdapter;
-import com.example.audiobook.models.Category;
+import com.example.audiobook.dto.response.CategoryResponse;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,15 +31,15 @@ public class PersonalizeItemFragment extends Fragment {
     private String subtitle;
     private String title;
     private String description;
-    private List<Category> categories;
+    private List<CategoryResponse> categories;
     private CategorySelectionListener selectionListener;
 
     public interface CategorySelectionListener {
-        void onCategorySelected(Category category);
-        void onCategoryDeselected(Category category);
+        void onCategorySelected(CategoryResponse categoryResponse);
+        void onCategoryDeselected(CategoryResponse categoryResponse);
     }
 
-    public static PersonalizeItemFragment newInstance(int type, String subtitle, String title, String description, List<Category> categories) {
+    public static PersonalizeItemFragment newInstance(int type, String subtitle, String title, String description, List<CategoryResponse> categories) {
         PersonalizeItemFragment fragment = new PersonalizeItemFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_TYPE, type);
@@ -58,7 +59,7 @@ public class PersonalizeItemFragment extends Fragment {
             subtitle = getArguments().getString(ARG_SUBTITLE);
             title = getArguments().getString(ARG_TITLE);
             description = getArguments().getString(ARG_DESCRIPTION);
-            categories = (List<Category>) getArguments().getSerializable(ARG_CATEGORIES);
+            categories = (List<CategoryResponse>) getArguments().getSerializable(ARG_CATEGORIES);
         }
         if (getActivity() instanceof CategorySelectionListener) {
             selectionListener = (CategorySelectionListener) getActivity();

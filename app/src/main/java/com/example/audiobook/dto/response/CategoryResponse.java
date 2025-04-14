@@ -1,12 +1,14 @@
-package com.example.audiobook.models;
+package com.example.audiobook.dto.response;
 
-public class Category {
+public class CategoryResponse {
     private String id;
     private String name;
-    public Category(String id, String name) {
+
+    public CategoryResponse(String id, String name) {
         this.id = id;
         this.name = name;
     }
+
     public String getId() {
         return id;
     }

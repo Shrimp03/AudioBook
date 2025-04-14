@@ -10,9 +10,8 @@ public class RegisterResponse implements Serializable {
         this.status = status;
         this.message = message;
     }
-    public RegisterResponse(){
 
-    }
+    public RegisterResponse() {}
 
     public String getStatus() {
         return status;
