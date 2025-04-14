@@ -3,7 +3,8 @@ package com.example.audiobook.repository;
 import static com.example.audiobook.api.APIconst.BASE_URL;
 
 import com.example.audiobook.api.CoreAppInterface;
-import com.example.audiobook.dto.response.CategoryResponse;
+import com.example.audiobook.dto.response.ResponseObject;
+import com.example.audiobook.dto.response.BookChapterResponse;
 
 import java.util.List;
 
@@ -11,10 +12,11 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CategoryRepository {
+public class BookChapterRepository {
+
     private CoreAppInterface coreAppInterface;
 
-    public CategoryRepository() {
+    public BookChapterRepository() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -22,7 +24,8 @@ public class CategoryRepository {
         coreAppInterface = retrofit.create(CoreAppInterface.class);
     }
 
-    public Call<List<CategoryResponse>> getAllCategories() {
-        return coreAppInterface.getAllCategory();
-    }
+    public Call<ResponseObject<List<BookChapterResponse>>> getAllByAudioBookId(String audioBookId) {
+        return coreAppInterface.getBookChaptersByAudioBookId(audioBookId);
+    };
+
 }

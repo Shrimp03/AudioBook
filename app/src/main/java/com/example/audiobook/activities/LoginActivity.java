@@ -8,60 +8,96 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.audiobook.R;
+import com.example.audiobook.dto.request.LoginRequest;
 import com.example.audiobook.dto.response.MessageKey;
 import com.example.audiobook.viewmodel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText editTextUsername, editTextPassword;
+    // UI components
+    private EditText editTextUsername;
+    private EditText editTextPassword;
     private Button buttonLogin;
+    private TextView textViewRegister;
+    // ViewModel for handling login logic
     private LoginViewModel loginViewModel;
-    private TextView directToRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        initializeViews();
+        initializeViewModel();
+        setupListeners();
+        observeLoginResult();
+    }
+
+    // Initializes UI components from the layout.
+    private void initializeViews() {
         editTextUsername = findViewById(R.id.edittext_username);
         editTextPassword = findViewById(R.id.edittext_password);
         buttonLogin = findViewById(R.id.button_login);
-        directToRegister = findViewById(R.id.redirect_to_register);
+        textViewRegister = findViewById(R.id.redirect_to_register);
+    }
+
+    // Initializes the LoginViewModel.
+    private void initializeViewModel() {
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-        buttonLogin.setOnClickListener(v -> {
-            String email = editTextUsername.getText().toString().trim();
-            String password = editTextPassword.getText().toString().trim();
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Please enter both email and password", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            loginViewModel.loginUser(email, password);
+    }
 
-        });
+    // Sets up click listeners for login button and register link.
+    private void setupListeners() {
+        // Handle login button click
+        buttonLogin.setOnClickListener(v -> handleLogin());
 
-        LoginViewModel.toast.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String message) {
-                if (message != null && !message.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
-                    if(message.equals(MessageKey.LOGIN_USER_SUCCESSFULLY)){
+        // Handle register link click
+        textViewRegister.setOnClickListener(v -> navigateToRegister());
+    }
 
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
+    // Validates input and initiates login process.
+    private void handleLogin() {
+        String email = editTextUsername.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
 
-                    }
+        if (email.isEmpty() || password.isEmpty()) {
+            showToast("Please enter both email and password", Toast.LENGTH_SHORT);
+            return;
+        }
+
+        LoginRequest loginRequest = new LoginRequest(email, password);
+        loginViewModel.loginUser(loginRequest);
+    }
+
+    // Observes login results and handles success/failure responses.
+    private void observeLoginResult() {
+        loginViewModel.toastMessage.observe(this, message -> {
+            if (message != null && !message.isEmpty()) {
+                showToast(message, Toast.LENGTH_LONG);
+                if (message.equals(MessageKey.LOGIN_USER_SUCCESSFULLY)) {
+                    navigateToMain();
                 }
             }
         });
+    }
 
+    // Navigates to the RegisterActivity.
+    private void navigateToRegister() {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
 
-        directToRegister.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-            startActivity(intent);
-        });
+    // Navigates to the MainActivity and closes the LoginActivity.
+    private void navigateToMain() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    // Displays a toast message with the specified duration.
+    private void showToast(String message, int duration) {
+        Toast.makeText(this, message, duration).show();
     }
 }

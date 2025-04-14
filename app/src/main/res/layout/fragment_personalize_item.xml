@@ -108,7 +108,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp" />
 
-    <!-- RecyclerView cho danh sách category (trang 2) -->
+    <!-- RecyclerView cho danh sách categoryResponse (trang 2) -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"

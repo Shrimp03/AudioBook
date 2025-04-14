@@ -3,14 +3,14 @@ package com.example.audiobook.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-
+import android.os.Looper;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.audiobook.R;
 import com.example.audiobook.helper.SessionManager;
 
 public class SplashActivity extends AppCompatActivity {
+    // Duration of the splash screen in milliseconds
+    private static final long SPLASH_DELAY_MS = 2000;
     private SessionManager sessionManager;
 
     @Override
@@ -18,15 +18,28 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        // Initialize session manager to check login status
         sessionManager = new SessionManager(this);
+        scheduleSplashScreen();
+    }
 
-        new Handler().postDelayed(() -> {
-            boolean isLoggedIn = sessionManager.isLoggedIn();
-            Log.d("SplashActivity", "Is Logged In: " + isLoggedIn);
-            Intent intent = new Intent(SplashActivity.this,
-                    isLoggedIn ? MainActivity.class : OnBoardingActivity.class);
-            startActivity(intent);
-            finish();
-        }, 2000);
+    // Schedules the splash screen to display for a fixed duration before navigating.
+    private void scheduleSplashScreen() {
+        new Handler(Looper.getMainLooper()).postDelayed(
+                this::navigateToNextScreen,
+                SPLASH_DELAY_MS
+        );
+    }
+
+    //Navigates to either MainActivity or OnBoardingActivity based on login status.
+    private void navigateToNextScreen() {
+        Class<?> destinationActivity = sessionManager.isLoggedIn()
+                ? MainActivity.class
+                : OnBoardingActivity.class;
+
+        // Start the next activity and close the splash screen
+        Intent intent = new Intent(this, destinationActivity);
+        startActivity(intent);
+        finish();
     }
 }

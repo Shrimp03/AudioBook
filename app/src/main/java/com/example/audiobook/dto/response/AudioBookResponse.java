@@ -1,25 +1,39 @@
-package com.example.audiobook.models;
+package com.example.audiobook.dto.response;
 
 import java.util.UUID;
 
-public class Audiobook {
+public class AudioBookResponse {
+
     private UUID id;
+
     private String author;
+
     private String coverImage;
+
     private String description;
+
     private int duration;
+
     private String femaleAudioUrl;
+
     private String femaleAudioUrlFull;
+
     private boolean isFree;
+
     private String maleAudioUrl;
+
     private String maleAudioUrlFull;
+
     private int publishedYear;
+
     private String title;
-    private Category categoryResponse;
+
+    private CategoryResponse categoryResponse;
+
     private UUID userId;
 
     // Constructor
-    public Audiobook() {
+    public AudioBookResponse() {
     }
 
     // Getters and Setters
@@ -120,11 +134,11 @@ public class Audiobook {
         this.title = title;
     }
 
-    public Category getCategoryResponse() {
+    public CategoryResponse getCategoryResponse() {
         return categoryResponse;
     }
 
-    public void setCategoryResponse(Category categoryResponse) {
+    public void setCategoryResponse(CategoryResponse categoryResponse) {
         this.categoryResponse = categoryResponse;
     }
 

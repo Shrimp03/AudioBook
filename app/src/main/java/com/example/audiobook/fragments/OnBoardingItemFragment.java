@@ -6,39 +6,62 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.audiobook.R;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OnBoardingItemFragment extends Fragment {
 
-    public static OnBoardingItemFragment newInstance(String title, String desc, String src) {
+    // Argument keys for Bundle
+    private static final String ARG_TITLE = "TITLE";
+    private static final String ARG_DESCRIPTION = "DESC";
+    private static final String ARG_IMAGE_SRC = "SRC";
+
+    // Mapping of image source strings to drawable resource IDs
+    private static final Map<String, Integer> IMAGE_RESOURCES = new HashMap<>();
+    static {
+        IMAGE_RESOURCES.put("on_boarding_1", R.drawable.on_boarding1);
+        IMAGE_RESOURCES.put("on_boarding_2", R.drawable.on_boarding2);
+        IMAGE_RESOURCES.put("on_boarding_3", R.drawable.on_boarding3);
+    }
+
+    // Creates a new instance of OnBoardingItemFragment with the given parameters.
+    public static OnBoardingItemFragment newInstance(@NonNull String title, @NonNull String description, @NonNull String imageSrc) {
         OnBoardingItemFragment fragment = new OnBoardingItemFragment();
         Bundle args = new Bundle();
-        args.putString("TITLE", title);
-        args.putString("DESC", desc);
-        args.putString("SRC", src);
+        args.putString(ARG_TITLE, title);
+        args.putString(ARG_DESCRIPTION, description);
+        args.putString(ARG_IMAGE_SRC, imageSrc);
         fragment.setArguments(args);
         return fragment;
     }
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.onboarding_item, container, false);
+
+        // Initialize views
         TextView titleView = view.findViewById(R.id.on_title);
-        ImageView imgView = view.findViewById(R.id.on_item_img);
-        TextView descView = view.findViewById(R.id.on_desc);
-        if (getArguments() != null) {
-            titleView.setText(getArguments().getString("TITLE"));
-            descView.setText(getArguments().getString("DESC"));
-            String src = getArguments().getString("SRC");
-            if(src.equals("on_boarding_1")){
-                imgView.setImageResource(R.drawable.on_boarding1);
+        TextView descriptionView = view.findViewById(R.id.on_desc);
+        ImageView imageView = view.findViewById(R.id.on_item_img);
+
+        // Populate views with data from arguments
+        Bundle args = getArguments();
+        if (args != null) {
+            titleView.setText(args.getString(ARG_TITLE));
+            descriptionView.setText(args.getString(ARG_DESCRIPTION));
+            String imageSrc = args.getString(ARG_IMAGE_SRC);
+            Integer resourceId = IMAGE_RESOURCES.get(imageSrc);
+            if (resourceId != null) {
+                imageView.setImageResource(resourceId);
             }
-            else if(src.equals("on_boarding_2")){
-                imgView.setImageResource(R.drawable.on_boarding2);
-            }
-            else imgView.setImageResource(R.drawable.on_boarding3);
         }
+
         return view;
     }
 }

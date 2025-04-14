@@ -1,6 +1,5 @@
 package com.example.audiobook.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,19 +7,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.audiobook.R;
-import com.example.audiobook.models.Category;
+import com.example.audiobook.dto.response.CategoryResponse;
+
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
-    private List<Category> categoryList;
+    private List<CategoryResponse> categoryResponseList;
     private final OnCategoryClickListener listener;
 
-    public interface OnCategoryClickListener {
-        void onCategoryClick(Category category);
-    }
-
-    public CategoryAdapter(List<Category> categoryList, OnCategoryClickListener listener) {
-        this.categoryList = categoryList;
+    public CategoryAdapter(List<CategoryResponse> categoryResponseList, OnCategoryClickListener listener) {
+        this.categoryResponseList = categoryResponseList;
         this.listener = listener;
     }
 
@@ -34,24 +30,25 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
-        Category category = categoryList.get(position);
-        holder.textView.setText(category.getName());
-
+        // Get by position
+        CategoryResponse categoryResponse = categoryResponseList.get(position);
+        // Bind data
+        holder.textView.setText(categoryResponse.getName());
+        // Click listener
         holder.textView.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onCategoryClick(category);
+                listener.onCategoryClick(categoryResponse);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return categoryList != null ? categoryList.size() : 0;
+        return categoryResponseList != null ? categoryResponseList.size() : 0;
     }
 
-    public void updateCategories(List<Category> newCategories) {
-        this.categoryList = newCategories;
-        Log.d("categoryAdapterupdate", String.valueOf(newCategories.get(8).getName()));
+    public void updateCategories(List<CategoryResponse> newCategories) {
+        this.categoryResponseList = newCategories;
         notifyDataSetChanged();
     }
 
@@ -62,5 +59,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             super(itemView);
             textView = itemView.findViewById(R.id.category_name);
         }
+    }
+
+    public interface OnCategoryClickListener {
+        void onCategoryClick(CategoryResponse categoryResponse);
     }
 }

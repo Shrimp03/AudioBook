@@ -3,13 +3,9 @@ package com.example.audiobook.repository;
 import static com.example.audiobook.api.APIconst.BASE_URL;
 
 import com.example.audiobook.api.CoreAppInterface;
-import com.example.audiobook.models.ApiResponse;
-import com.example.audiobook.models.Audiobook;
-import com.example.audiobook.models.Category;
-import com.example.audiobook.models.PageResponse;
-
-import java.util.List;
-import java.util.UUID;
+import com.example.audiobook.dto.response.ResponseObject;
+import com.example.audiobook.dto.response.AudioBookResponse;
+import com.example.audiobook.dto.response.PageResponse;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -25,9 +21,6 @@ public class AudioBookRepository {
                 .build();
         coreAppInterface = retrofit.create(CoreAppInterface.class);
     }
-    public Call<ApiResponse<PageResponse<Audiobook>>> getAllAudioBooks(){return coreAppInterface.getAllAudioBooks();};
+    public Call<ResponseObject<PageResponse<AudioBookResponse>>> getAllAudioBooks(){return coreAppInterface.getAllAudioBooks();};
 
-//    public Call<ApiResponse> getAudioBook(UUID audioBookId) {
-//        return coreAppInterface.getAudioBooksById(audioBookId);
-//    }
 }

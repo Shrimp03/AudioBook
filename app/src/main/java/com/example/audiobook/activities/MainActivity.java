@@ -1,45 +1,51 @@
 package com.example.audiobook.activities;
 
+import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
-import android.os.Bundle;
-
 import com.example.audiobook.R;
 import com.example.audiobook.fragments.HomeFragment;
 import com.example.audiobook.fragments.PlayerFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+// Main activity hosting the app's primary navigation and fragments
 public class MainActivity extends AppCompatActivity {
 
+    // Called when the activity is first created
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initialize BottomNavigationView and set navigation listener
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
-            int itemId = item.getItemId();
-            if (itemId == R.id.nav_home) {
-                selectedFragment = new HomeFragment();
-            } else if (itemId == R.id.nav_search) {
-                selectedFragment = new PlayerFragment();
-            }
-
-            if (selectedFragment != null) {
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, selectedFragment)
-                        .commit();
-            }
+            Fragment selectedFragment = getFragmentForMenuItem(item.getItemId());
+            switchFragment(selectedFragment);
             return true;
         });
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, new HomeFragment())
-                .commit();
-//        getSupportActionBar().hide();
+        // Set HomeFragment as the default fragment
+        switchFragment(new HomeFragment());
+    }
+
+    // Returns the appropriate fragment based on the selected navigation item
+    private Fragment getFragmentForMenuItem(int itemId) {
+        if (itemId == R.id.nav_home) {
+            return new HomeFragment();
+        } else if (itemId == R.id.nav_search) {
+            return new PlayerFragment();
+        }
+        return null;
+    }
+
+    // Switches to the specified fragment if it is not null
+    private void switchFragment(Fragment fragment) {
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+        }
     }
 }

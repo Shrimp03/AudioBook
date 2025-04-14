@@ -12,8 +12,8 @@ public class SessionManager {
 
     public SessionManager(Context context) {
         this.context = context;
-        pref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        editor = pref.edit();
+        this.pref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        this.editor = pref.edit();
     }
 
     public void setLogin(boolean isLoggedIn) {
