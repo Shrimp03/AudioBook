@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
 
     // Navigates to the MainActivity and closes the LoginActivity.
     private void navigateToMain() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, PersonalizeActivity.class);
         startActivity(intent);
         finish();
     }

@@ -11,6 +11,8 @@ public class APIconst {
 
     // Category
     public static final String GET_CATEGORIES = BASE_URL + "/api/category/";
+    public static final String ADD_RECOMMEND_CATEGORIES = BASE_URL + "api/favorite-categories/add";
+    public static final String CHECK_FIRST_LOGIN = BASE_URL + "api/favorite-categories/{userId}/exists";
 
     // Audio Book
     public static final String GET_AUDIO_BOOKS = BASE_URL + "/api/audio-book/";
