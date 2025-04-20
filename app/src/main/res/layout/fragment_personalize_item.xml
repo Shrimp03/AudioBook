@@ -10,8 +10,8 @@
     <!-- Hình ảnh cho trang Finish -->
     <ImageView
         android:id="@+id/finishImage"
-        android:layout_width="260dp"
-        android:layout_height="260dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:src="@drawable/finish_personalize"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
@@ -62,7 +62,10 @@
         app:layout_constraintTop_toBottomOf="@id/introTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
+        />
 
     <!-- Tiêu đề phụ cho trang Finish (Congratulations !) -->
     <TextView

@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -36,6 +37,12 @@ public interface CoreAppInterface {
     // Category
     @GET(APIconst.GET_CATEGORIES)
     Call<List<CategoryResponse>> getAllCategory();
+
+    @POST(APIconst.ADD_RECOMMEND_CATEGORIES)
+    Call<ResponseObject> addRecommendCategory(@Body Map<String, Object> requestBod);
+
+    @GET(APIconst.CHECK_FIRST_LOGIN)
+    Call<ResponseObject> checkFirstLogin();
 
     // Audio book
     @GET(APIconst.GET_AUDIO_BOOKS)
