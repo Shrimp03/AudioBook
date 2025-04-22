@@ -11,4 +11,10 @@
     <string name="login_to_your_account">Login to Your Account</string>
     <string name="don_t_have_and_account">Don\'t have and account ?</string>
     <string name="register">Register</string>
+    <string name="signup_terms">
+        By signing up, you agree to our
+        <font color="#4838D1">Terms</font>,
+        <font color="#4838D1">Data Policy</font> and
+        <font color="#4838D1"> Cookies Policy</font>.
+    </string>
 </resources>
