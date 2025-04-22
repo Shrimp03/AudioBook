@@ -7,11 +7,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
-import com.example.audiobook.MainActivity;
+
 import com.example.audiobook.R;
 import com.example.audiobook.adapters.PersonalizeAdapter;
+import com.example.audiobook.dto.response.CategoryResponse;
 import com.example.audiobook.fragments.PersonalizeItemFragment;
-import com.example.audiobook.models.Category;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class PersonalizeActivity extends AppCompatActivity implements Personaliz
     private ViewPager2 viewPager;
     private View[] dots;
     private PersonalizeAdapter adapter;
-    private List<Category> selectedCategories;
+    private List<CategoryResponse> selectedCategories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,20 +32,22 @@ public class PersonalizeActivity extends AppCompatActivity implements Personaliz
         selectedCategories = new ArrayList<>();
 
         // Tạo dữ liệu mẫu
-        List<Category> categories = new ArrayList<>();
-        categories.add(new Category("1", "Thể thao"));
-        categories.add(new Category("2", "Âm nhạc"));
-        categories.add(new Category("3", "Công nghệ"));
-        categories.add(new Category("4", "Du lịch"));
-        categories.add(new Category("5", "Sách"));
-        categories.add(new Category("6", "Phim"));
+        List<CategoryResponse> categories = new ArrayList<>();
+        categories.add(new CategoryResponse("1", "Thể thao"));
+        categories.add(new CategoryResponse("2", "Âm nhạc"));
+        categories.add(new CategoryResponse("3", "Công nghệ"));
+        categories.add(new CategoryResponse("4", "Du lịch"));
+        categories.add(new CategoryResponse("5", "Sách"));
+        categories.add(new CategoryResponse("6", "Phim"));
 
         // Kiểm tra danh sách categories
         if (categories.isEmpty()) {
             throw new IllegalStateException("Categories list is empty!");
         }
 
+        // Initilize adapter
         adapter = new PersonalizeAdapter(this, categories);
+        // Set adapter
         viewPager.setAdapter(adapter);
 
         dots = new View[]{
@@ -110,18 +113,18 @@ public class PersonalizeActivity extends AppCompatActivity implements Personaliz
     }
 
     @Override
-    public void onCategorySelected(Category category) {
-        if (!selectedCategories.contains(category)) {
-            selectedCategories.add(category);
+    public void onCategorySelected(CategoryResponse categoryResponse) {
+        if (!selectedCategories.contains(categoryResponse)) {
+            selectedCategories.add(categoryResponse);
         }
     }
 
     @Override
-    public void onCategoryDeselected(Category category) {
-        selectedCategories.remove(category);
+    public void onCategoryDeselected(CategoryResponse categoryResponse) {
+        selectedCategories.remove(categoryResponse);
     }
 
-    public List<Category> getSelectedCategories() {
+    public List<CategoryResponse> getSelectedCategories() {
         return selectedCategories;
     }
 }

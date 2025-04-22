@@ -4,13 +4,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.example.audiobook.fragments.PersonalizeItemFragment;
-import com.example.audiobook.models.Category;
+import com.example.audiobook.dto.response.CategoryResponse;
 import java.util.List;
 
 public class PersonalizeAdapter extends FragmentStateAdapter {
-    private List<Category> categories;
+    private List<CategoryResponse> categories;
 
-    public PersonalizeAdapter(FragmentActivity fragmentActivity, List<Category> categories) {
+    public PersonalizeAdapter(FragmentActivity fragmentActivity, List<CategoryResponse> categories) {
         super(fragmentActivity);
         this.categories = categories;
     }

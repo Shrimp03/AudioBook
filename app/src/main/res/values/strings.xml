@@ -17,4 +17,6 @@
         <font color="#4838D1">Data Policy</font> and
         <font color="#4838D1"> Cookies Policy</font>.
     </string>
+    <string name="get_started">Get Started</string>
+    <string name="next">Next</string>
 </resources>

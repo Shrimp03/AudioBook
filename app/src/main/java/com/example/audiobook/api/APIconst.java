@@ -1,17 +1,24 @@
 package com.example.audiobook.api;
 
 public class APIconst {
-    public static final String BASE_URL = " https://d3ef-14-0-22-145.ngrok-free.app";
+    public static final String BASE_URL = "https://3a85-14-0-22-145.ngrok-free.app";
 
-    /// uri
-    public static final String GET_ALL_CATE = BASE_URL + "/api/category/getAll";
-    public static final String GET_ALL_AUDIO_BOOKS = BASE_URL + "/api/audiobooks/getAll";
+    // Authentication
+    public static final String LOGIN = BASE_URL + "/api/auth/token";
 
-    public static final String REGISTER = BASE_URL + "api/user/register";
+    // User
+    public static final String USER_REGISTER = BASE_URL + "/api/user/register";
 
-    public static final String LOGIN = BASE_URL + "/auth/token/get";
+    // Category
+    public static final String GET_CATEGORIES = BASE_URL + "/api/category/";
 
-    public static final String GET_AUDIO_BOOKS_BY_TITLE = BASE_URL + "api/audiobooks/title";
-    public static final String GET_AUDIO_BOOKS_BY_ID = BASE_URL + "api/audiobooks/category/{categoryId}";
-    public static final String GET_AUDIO_BOOKS_BY_USER = BASE_URL + "api/audiobooks/user/{userId}";
+    // Audio Book
+    public static final String GET_AUDIO_BOOKS = BASE_URL + "/api/audio-book/";
+    public static final String GET_AUDIO_BOOKS_BY_TITLE = BASE_URL + "/api/audio-book/title";
+    public static final String GET_AUDIO_BOOKS_BY_CATEGORY_ID = BASE_URL + "/api/audio-book/category/{categoryId}";
+    public static final String GET_AUDIO_BOOKS_BY_USER_ID = BASE_URL + "/api/audio-book/user/{userId}";
+    public static final String GET_AUDIO_BOOK_BY_ID = BASE_URL + "/api/audio-book/{audioBookId}";
+
+    // Book Chapter
+    public static final String GET_BOOK_CHAPTERS_BY_AUDIO_BOOK_ID = BASE_URL + "/api/book-chapter/audio-book/{audioBookId}";
 }
