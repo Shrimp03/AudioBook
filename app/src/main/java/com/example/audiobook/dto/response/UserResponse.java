@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class UserResponse {
-    private UUID id;
+    private String id;
 
     private String userName;
 
@@ -15,13 +15,13 @@ public class UserResponse {
 
     private String password;
 
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
 
     private Instant preniumExpiry;
 
     private boolean premiumStatus;
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
