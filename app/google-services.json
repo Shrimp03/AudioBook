@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "871894744720",
+    "project_id": "marketplace-431617",
+    "storage_bucket": "marketplace-431617.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871894744720:android:c71295c24d0b0d3c512215",
+        "android_client_info": {
+          "package_name": "com.example.audiobook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871894744720-u65jqgpc95tdad3k46he1j28536a1kqr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlSZFn9dioHOWj6-Da_qC5O4bsn-pahp8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871894744720-u65jqgpc95tdad3k46he1j28536a1kqr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871894744720:android:f734021de4b5c6c3512215",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871894744720-u65jqgpc95tdad3k46he1j28536a1kqr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlSZFn9dioHOWj6-Da_qC5O4bsn-pahp8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871894744720-u65jqgpc95tdad3k46he1j28536a1kqr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
