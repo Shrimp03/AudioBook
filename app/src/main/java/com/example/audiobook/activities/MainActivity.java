@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import com.example.audiobook.R;
 import com.example.audiobook.fragments.HomeFragment;
 import com.example.audiobook.fragments.PlayerFragment;
+import com.example.audiobook.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 // Main activity hosting the app's primary navigation and fragments
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         if (itemId == R.id.nav_home) {
             return new HomeFragment();
         } else if (itemId == R.id.nav_search) {
-            return new PlayerFragment();
+//            return new SearchFragment();
         }
         return null;
     }

@@ -20,7 +20,7 @@ import retrofit2.Response;
 
 public class HomeViewModel extends ViewModel {
     // Repository
-    private final CategoryRepository categoryRepository = new CategoryRepository();
+    private final CategoryRepository categoryRepository = new CategoryRepository(null);
     private final AudioBookRepository audioBookRepository = new AudioBookRepository();
 
     // Live data

@@ -1,7 +1,7 @@
 package com.example.audiobook.api;
 
 public class APIconst {
-    public static final String BASE_URL = "https://cb69-2405-4802-1cb1-6630-6d46-72b9-ab4a-6ee6.ngrok-free.app";
+    public static final String BASE_URL = "http://192.168.31.88:8080";
 
     // Authentication
     public static final String LOGIN = BASE_URL + "/api/auth/token";
@@ -11,6 +11,8 @@ public class APIconst {
 
     // Category
     public static final String GET_CATEGORIES = BASE_URL + "/api/category/";
+    public static final String ADD_RECOMMEND_CATEGORIES = BASE_URL + "/api/favorite-categories/add";
+    public static final String CHECK_FIRST_LOGIN = BASE_URL + "/api/favorite-categories/exists";
 
     // Audio Book
     public static final String GET_AUDIO_BOOKS = BASE_URL + "/api/audio-book/";
