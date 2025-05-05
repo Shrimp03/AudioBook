@@ -43,6 +43,17 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         settingImageView = view.findViewById(R.id.ic_setting);
+        settingImageView.setOnClickListener(v -> {
+            // Tạo instance của SettingFragment
+            SettingFragment settingFragment = new SettingFragment();
+            // Thực hiện replace và thêm vào back stack
+            requireActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, settingFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
 
         // Initialize RecyclerViews
         setupRecyclerViews(view);

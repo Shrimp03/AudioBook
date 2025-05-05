@@ -10,4 +10,7 @@
     <color name="primary_50">#4838D1</color>
     <color name="inactive_icon">#6A6A8B</color>
     <color name="Neutral_80">#2E2E5D</color>
+    <!-- Màu dùng cho Settings screen -->
+    <color name="light_grey_bg">#F2F2F7</color>
+    <color name="orange">#FF6B35</color>
 </resources>
