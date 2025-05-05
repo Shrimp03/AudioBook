@@ -22,6 +22,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -39,10 +40,10 @@ public interface CoreAppInterface {
     Call<List<CategoryResponse>> getAllCategory();
 
     @POST(APIconst.ADD_RECOMMEND_CATEGORIES)
-    Call<ResponseObject> addRecommendCategory(@Body Map<String, Object> requestBod);
+    Call<ResponseObject> addRecommendCategory(@Header("Authorization") String authorization, @Body Map<String, Object> requestBod);
 
     @GET(APIconst.CHECK_FIRST_LOGIN)
-    Call<ResponseObject> checkFirstLogin();
+    Call<ResponseObject> checkFirstLogin(@Header("Authorization") String authorization);
 
     // Audio book
     @GET(APIconst.GET_AUDIO_BOOKS)

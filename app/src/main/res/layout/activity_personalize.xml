@@ -76,18 +76,8 @@
         android:layout_marginBottom="20dp">
 
         <Button
-            android:id="@+id/btnSkip"
-            android:layout_width="140dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="10dp"
-            android:text="Skip"
-            android:background="@android:color/transparent"
-            android:textColor="@color/primary_50"
-            android:textSize="16sp" />
-
-        <Button
             android:id="@+id/btnNext"
-            android:layout_width="140dp"
+            android:layout_width="180dp"
             android:layout_height="66dp"
             android:layout_marginStart="10dp"
             android:text="Next"

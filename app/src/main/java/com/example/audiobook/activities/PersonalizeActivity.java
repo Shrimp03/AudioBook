@@ -1,6 +1,9 @@
 package com.example.audiobook.activities;
 
+import static com.example.audiobook.viewmodel.LoginViewModel.TOKEN_KEY;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -15,6 +18,8 @@ import com.example.audiobook.dto.response.CategoryResponse;
 import com.example.audiobook.dto.response.ResponseObject;
 import com.example.audiobook.fragments.PersonalizeItemFragment;
 import com.example.audiobook.repository.CategoryRepository;
+import com.example.audiobook.viewmodel.LoginViewModel;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +36,7 @@ public class PersonalizeActivity extends AppCompatActivity implements Personaliz
     private List<CategoryResponse> categories = new ArrayList<>();
     private List<CategoryResponse> selectedCategories = new ArrayList<>();
     private CategoryRepository repository;
-    private static final String USER_ID = "60409c5e-009d-41ec-b1a2-ec026000b071";
+//    private static final String USER_ID = "60409c5e-009d-41ec-b1a2-ec026000b071";
     private int maxFragmentHeight = 0;
 
     @Override
@@ -40,8 +45,14 @@ public class PersonalizeActivity extends AppCompatActivity implements Personaliz
         setContentView(R.layout.activity_personalize);
 
         viewPager = findViewById(R.id.viewPager);
-        repository = new CategoryRepository();
+        SharedPreferences prefs = getSharedPreferences(LoginViewModel.PREFS_NAME, MODE_PRIVATE);
+        String token = prefs.getString(TOKEN_KEY, null);
+        repository = new CategoryRepository(token);
         dots = new View[]{findViewById(R.id.dot1), findViewById(R.id.dot2), findViewById(R.id.dot3)};
+        Button btnNext = findViewById(R.id.btnNext);
+
+        // Set fixed widths for buttons (140dp for Next, 60dp for Skip)
+        setButtonWidth(btnNext, 140);
 
         // Khởi tạo adapter
         adapter = new PersonalizeAdapter(this, categories);
@@ -57,26 +68,14 @@ public class PersonalizeActivity extends AppCompatActivity implements Personaliz
             public void onPageSelected(int position) {
                 updateDots(position);
                 Button btnNext = findViewById(R.id.btnNext);
-                Button btnSkip = findViewById(R.id.btnSkip);
-
                 if (position == 0) {
                     btnNext.setText("Start");
-                    btnSkip.setVisibility(View.VISIBLE);
                 } else if (position == 1) {
                     btnNext.setText("Next");
-                    btnSkip.setVisibility(View.VISIBLE);
                 } else {
                     btnNext.setText("Finish");
-                    btnSkip.setVisibility(View.GONE);
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                            (int) (250 * getResources().getDisplayMetrics().density),
-                            (int) (66 * getResources().getDisplayMetrics().density)
-                    );
-                    params.setMarginStart((int) (10 * getResources().getDisplayMetrics().density));
-                    btnNext.setLayoutParams(params);
                 }
-
-                // Đo chiều cao fragment hiện tại
+                setButtonWidth(btnNext, 180);
                 measureFragmentHeight();
             }
         });
@@ -91,8 +90,16 @@ public class PersonalizeActivity extends AppCompatActivity implements Personaliz
             }
         });
 
-        // Xử lý nút Skip
-        findViewById(R.id.btnSkip).setOnClickListener(v -> navigateToMain());
+    }
+
+    private void setButtonWidth(Button button, int dp) {
+        int widthInPixels = (int) (dp * getResources().getDisplayMetrics().density);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                widthInPixels,
+                (int) (66 * getResources().getDisplayMetrics().density) // Keep height consistent
+        );
+        params.setMarginStart((int) (10 * getResources().getDisplayMetrics().density)); // Maintain margin
+        button.setLayoutParams(params);
     }
 
     private void fetchCategories() {
@@ -130,7 +137,6 @@ public class PersonalizeActivity extends AppCompatActivity implements Personaliz
         }
 
         Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("userId", USER_ID);
         requestBody.put("categories", categoryList);
 
         repository.addRecommendCategory(requestBody).enqueue(new Callback<ResponseObject>() {
