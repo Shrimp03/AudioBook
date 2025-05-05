@@ -1,7 +1,7 @@
 package com.example.audiobook.api;
 
 public class APIconst {
-    public static final String BASE_URL = " https://25ae-14-0-22-145.ngrok-free.app";
+    public static final String BASE_URL = "https://cb69-2405-4802-1cb1-6630-6d46-72b9-ab4a-6ee6.ngrok-free.app";
 
     // Authentication
     public static final String LOGIN = BASE_URL + "/api/auth/token";
