@@ -1,12 +1,14 @@
 package com.example.audiobook.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.audiobook.R;
 import com.example.audiobook.helper.SessionManager;
+import com.example.audiobook.viewmodel.LoginViewModel;
 
 public class SplashActivity extends AppCompatActivity {
     // Duration of the splash screen in milliseconds
@@ -33,11 +35,13 @@ public class SplashActivity extends AppCompatActivity {
 
     //Navigates to either MainActivity or OnBoardingActivity based on login status.
     private void navigateToNextScreen() {
-        Class<?> destinationActivity = sessionManager.isLoggedIn()
+        SharedPreferences preferences = getSharedPreferences(LoginViewModel.PREFS_NAME, MODE_PRIVATE);
+        String token = preferences.getString(LoginViewModel.TOKEN_KEY, null);
+
+        Class<?> destinationActivity = (token != null)
                 ? MainActivity.class
                 : OnBoardingActivity.class;
 
-        // Start the next activity and close the splash screen
         Intent intent = new Intent(this, destinationActivity);
         startActivity(intent);
         finish();

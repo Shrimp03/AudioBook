@@ -21,8 +21,8 @@ import retrofit2.Response;
 
 public class LoginViewModel extends AndroidViewModel {
     private static final String TAG = "LoginViewModel";
-    private static final String PREFS_NAME = "AuthPrefs";
-    private static final String TOKEN_KEY = "auth_token";
+    public static final String PREFS_NAME = "AuthPrefs";
+    public static final String TOKEN_KEY = "auth_token";
 
     private final AuthenticationRepository repository;
     private final SharedPreferences preferences;

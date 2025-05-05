@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -22,6 +24,7 @@ public class HomeFragment extends Fragment {
 
     // Log tag for debugging
     private static final String TAG = "HomeFragment";
+    private ImageView settingImageView;
 
     // UI components
     private RecyclerView categoryRecyclerView;
@@ -39,6 +42,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        settingImageView = view.findViewById(R.id.ic_setting);
 
         // Initialize RecyclerViews
         setupRecyclerViews(view);

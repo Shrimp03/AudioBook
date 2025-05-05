@@ -42,6 +42,7 @@ public class RegisterViewModel extends AndroidViewModel {
         repository.registerAccount(request).enqueue(new Callback<ResponseObject<UserResponse>>() {
             @Override
             public void onResponse(@NonNull Call<ResponseObject<UserResponse>> call, @NonNull Response<ResponseObject<UserResponse>> response) {
+                Log.d(TAG, "Registration response: " + response.body());
                 handleRegisterResponse(response);
             }
 
