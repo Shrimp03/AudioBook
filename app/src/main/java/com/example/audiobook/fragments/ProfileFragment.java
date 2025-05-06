@@ -63,7 +63,7 @@ public class ProfileFragment extends Fragment {
                 textView.setTextColor(getResources().getColor(R.color.primary_50));
                 textView.setTextSize(18);
                 textView.setTypeface(null, Typeface.BOLD);
-                textView.setPadding(16, 0, 45, 0);
+                textView.setPadding(16, 0, 55, 0);
 
                 textView.setGravity(Gravity.CENTER);
                 textView.setOnClickListener(v -> {
