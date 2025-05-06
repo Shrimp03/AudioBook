@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <!-- Toolbar với Back và Save -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_profile"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:contentInsetStartWithNavigation="0dp"
+        app:navigationIcon="@drawable/back_button"
+        app:title=""
+        app:titleTextColor="@color/black">
+
+        <TextView
+            android:id="@+id/toolbar_title_center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Profile"
+            android:textStyle="bold"
+            android:textColor="@color/Neutral_80"
+            android:textSize="18sp" />
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+
+            <FrameLayout
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_gravity="center_horizontal">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_profile_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/gcl"
+                    app:shapeAppearanceOverlay="@style/ProfileImageRounded" />
+
+
+                <ImageView
+                    android:id="@+id/iv_edit_photo"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="top|end"
+                    android:layout_margin="4dp"
+                    android:src="@drawable/edit_button"
+                    app:tint="@color/material_dynamic_tertiary70" />
+            </FrameLayout>
+
+            <!-- Khoảng trống -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
+
+            <!-- Danh sách thông tin -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Display Name -->
+                <LinearLayout
+                    style="@style/SettingItem"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="Display Name"
+                        android:textColor="@color/Neutral_80"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_display_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="John Doe"
+                        android:textColor="@color/Neutral_80" />
+                </LinearLayout>
+
+                <View style="@style/SettingDivider" />
+
+                <!-- Username -->
+                <LinearLayout style="@style/SettingItem"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="Username"
+                        android:textColor="@color/Neutral_80"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="johndoe"
+                        android:textColor="@color/Neutral_80" />
+                </LinearLayout>
+
+                <View style="@style/SettingDivider" />
+
+                <!-- Email -->
+                <LinearLayout style="@style/SettingItem"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="Email"
+                        android:textColor="@color/Neutral_80"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="john@mail.com"
+                        android:textColor="@color/Neutral_80" />
+                </LinearLayout>
+
+                <View style="@style/SettingDivider" />
+
+                <!-- Phone -->
+                <LinearLayout style="@style/SettingItem"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="Phone"
+                        android:textColor="@color/Neutral_80"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="+1234567890"
+                        android:textColor="@color/Neutral_80" />
+                </LinearLayout>
+
+                <View style="@style/SettingDivider" />
+
+                <!-- Date Birth -->
+                <LinearLayout style="@style/SettingItem"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="Date Birth"
+                        android:textColor="@color/Neutral_80"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_birthdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="01 January 2001"
+                        android:textColor="@color/Neutral_80" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

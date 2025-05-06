@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.audiobook.R;
 import com.example.audiobook.activities.LoginActivity;
@@ -35,6 +37,7 @@ public class SettingFragment extends Fragment {
     private MaterialButton btnLogout;
     private LoginViewModel loginViewModel;
     private SessionManager sessionManager;
+    private TextView tvViewProfile;
 
     public SettingFragment() {
         // Required empty public constructor
@@ -82,8 +85,14 @@ public class SettingFragment extends Fragment {
         // Initialize logout button
         btnLogout = view.findViewById(R.id.btn_logout);
         
+        // Initialize view profile TextView
+        tvViewProfile = view.findViewById(R.id.tv_view_profile);
+        
         // Set click listener for logout button
         btnLogout.setOnClickListener(v -> handleLogout());
+        
+        // Set click listener for view profile TextView
+        tvViewProfile.setOnClickListener(v -> navigateToProfileFragment());
         
         return view;
     }
@@ -106,5 +115,16 @@ public class SettingFragment extends Fragment {
         
         // Close the current activity
         requireActivity().finish();
+    }
+    
+    /**
+     * Navigates to the ProfileFragment
+     */
+    private void navigateToProfileFragment() {
+        ProfileFragment profileFragment = new ProfileFragment();
+        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, profileFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
