@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         if (itemId == R.id.nav_home) {
             return new HomeFragment();
         } else if (itemId == R.id.nav_search) {
-//            return new SearchFragment();
+            return new SearchFragment();
         }
         return null;
     }
