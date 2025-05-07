@@ -10,6 +10,10 @@ import com.example.audiobook.dto.response.ResponseObject;
 import com.example.audiobook.dto.response.UserResponse;
 import com.example.audiobook.helper.SessionManager;
 
+import java.util.Map;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -29,4 +33,12 @@ public class UserRepository {
     public Call<ResponseObject<UserResponse>> registerAccount(RegisterRequest registerRequest) {
         return coreAppInterface.registerAccount(registerRequest);
     };
+
+    public Call<UserResponse> updateUser(String userId,Map<String, RequestBody> partMap, MultipartBody.Part file) {
+        return coreAppInterface.updateUser(userId, partMap, file);
+    }
+
+    public Call<UserResponse> getUserInfor(String id){
+        return coreAppInterface.getUserInfor(id);
+    }
 }

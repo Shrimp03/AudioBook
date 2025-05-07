@@ -28,8 +28,6 @@ import com.example.audiobook.viewmodel.LoginViewModel;
 import com.example.audiobook.viewmodel.ProfileViewModel;
 import com.google.android.material.button.MaterialButton;
 
-import utils.Constant;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SettingFragment#newInstance} factory method to
@@ -88,8 +86,6 @@ public class SettingFragment extends Fragment {
         profileViewModel.getImageUrl().observe(this, imageUrl -> {
             if (imageUrl != null) {
                 updateProfilePhoto(imageUrl);
-            }else{
-                updateProfilePhoto(Constant.DEFAULT_IMG_URL);
             }
         });
         
