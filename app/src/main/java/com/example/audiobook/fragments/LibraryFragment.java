@@ -74,7 +74,7 @@ public class LibraryFragment extends Fragment {
 
         // Khởi tạo Retrofit
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8000/") // IP máy tính của bạn
+                .baseUrl("http://172.11.12.174:8000/")
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

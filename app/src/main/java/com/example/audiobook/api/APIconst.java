@@ -16,6 +16,8 @@ public class APIconst {
 
     // Audio Book
     public static final String GET_AUDIO_BOOKS = BASE_URL + "/api/audio-book/";
+    public static final String GET_RECOMMEND = BASE_URL + "/api/audio-book/recommend";
+    public static final String GET_NEW_RELEASE = BASE_URL + "api/audio-book/new-release";
     public static final String GET_AUDIO_BOOKS_BY_TITLE = BASE_URL + "/api/audio-book/title";
     public static final String GET_AUDIO_BOOKS_BY_CATEGORY_ID = BASE_URL + "/api/audio-book/category/{categoryId}";
     public static final String GET_AUDIO_BOOKS_BY_USER_ID = BASE_URL + "/api/audio-book/user/{userId}";
