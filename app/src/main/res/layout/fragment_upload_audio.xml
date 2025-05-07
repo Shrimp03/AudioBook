@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:id="@+id/tv_upload_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tạo Audiobook"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Ô nhập tiêu đề -->
+    <EditText
+        android:id="@+id/et_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Tiêu đề"
+        android:padding="12dp"
+        android:background="@drawable/bg_input_search"
+        android:textSize="16sp"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/tv_upload_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Ô nhập tác giả -->
+    <EditText
+        android:id="@+id/et_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Tác giả"
+        android:padding="12dp"
+        android:background="@drawable/bg_input_search"
+        android:textSize="16sp"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@id/et_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Ô nhập năm xuất bản -->
+    <EditText
+        android:id="@+id/et_publish_year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Năm xuất bản"
+        android:padding="12dp"
+        android:background="@drawable/bg_input_search"
+        android:textSize="16sp"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/et_author"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Ô nhập mô tả -->
+    <EditText
+        android:id="@+id/et_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Mô tả"
+        android:padding="12dp"
+        android:minHeight="80dp"
+        android:background="@drawable/bg_input_search"
+        android:textSize="16sp"
+        android:inputType="textMultiLine"
+        app:layout_constraintTop_toBottomOf="@id/et_publish_year"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Nút chọn file MP3 -->
+    <Button
+        android:id="@+id/btn_select_audio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Chọn file MP3"
+        app:layout_constraintTop_toBottomOf="@id/et_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- EditText hiển thị và chỉnh sửa kết quả -->
+    <EditText
+        android:id="@+id/et_transcribe_result"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:hint="Nội dung văn bản sẽ hiển thị ở đây"
+        android:padding="12dp"
+        android:minHeight="100dp"
+        android:background="@drawable/bg_input_search"
+        android:textSize="16sp"
+        android:inputType="textMultiLine"
+        android:scrollbars="vertical"
+        android:overScrollMode="always"
+        app:layout_constraintTop_toBottomOf="@id/btn_select_audio"
+        app:layout_constraintBottom_toTopOf="@id/btn_generate_audio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Nút tạo giọng đọc -->
+    <Button
+        android:id="@+id/btn_generate_audio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Tạo giọng đọc"
+        app:layout_constraintTop_toBottomOf="@id/et_transcribe_result"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Nút tạo Audiobook -->
+    <Button
+        android:id="@+id/btn_create_audiobook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Tạo Audiobook"
+        app:layout_constraintTop_toBottomOf="@id/btn_generate_audio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Thanh loading -->
+    <ProgressBar
+        android:id="@+id/progress_bar_upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/btn_create_audiobook"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
