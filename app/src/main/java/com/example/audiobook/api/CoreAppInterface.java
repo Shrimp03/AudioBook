@@ -64,8 +64,11 @@ public interface CoreAppInterface {
     @GET(APIconst.GET_AUDIO_BOOKS_BY_TITLE)
     Call<List<AudioBookResponse>> getAudioBooksByTitle(@Query("title") String title);
 
+    @GET(APIconst.GET_AUDIO_BOOK_BY_SEARCH)
+    Call<ResponseObject<PageResponse<AudioBookResponse>>> getAudioBooksBySearch(@Query("searchTxt") String searchTxt);
+
     @GET(APIconst.GET_AUDIO_BOOKS_BY_CATEGORY_ID)
-    Call<List<AudioBookResponse>> getAudioBooksByCategoryId(@Path("categoryId") String categoryId);
+    Call<ResponseObject<PageResponse<AudioBookResponse>>> getAudioBooksByCategoryId(@Path("categoryId") String categoryId);
 
     @GET(APIconst.GET_AUDIO_BOOKS_BY_USER_ID)
     Call<List<AudioBookResponse>> getAudioBooksByUserId(@Path("userId") String userId);
