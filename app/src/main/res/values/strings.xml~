@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Audio Book</string>
+    <string name="see_more">See more</string>
+    <string name="login_with_google">Login with google</string>
+    <string name="login_with_facebook">login with facebook</string>
+    <string name="login_with_twitter">login with twitter</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="email">Email</string>
+    <string name="login_to_your_account">Login to Your Account</string>
+    <string name="don_t_have_and_account">Don\'t have and account ?</string>
+    <string name="register">Register</string>
+    <string name="signup_terms">
+        By signing up, you agree to our
+        <font color="#4838D1">Terms</font>,
+        <font color="#4838D1">Data Policy</font> and
+        <font color="#4838D1"> Cookies Policy</font>.
+    </string>
+    <string name="get_started">Get Started</string>
+    <string name="next">Next</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

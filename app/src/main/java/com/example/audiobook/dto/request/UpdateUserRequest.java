@@ -1,0 +1,83 @@
+package com.example.audiobook.dto.request;
+
+import java.io.File;
+import java.io.Serializable;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+
+public class UpdateUserRequest implements Serializable {
+    private String username;
+    private String displayName;
+
+    private String dateOfBirth;
+
+    private transient File avatarFile;
+    private transient MultipartBody.Part avatarPart;
+    
+    public UpdateUserRequest() {
+    }
+    
+    public UpdateUserRequest(String username, String displayName, String dateOfBirth) {
+        this.username = username;
+        this.dateOfBirth = dateOfBirth;
+        this.displayName = displayName;
+    }
+    
+    public String getUsername() {
+        return username;
+    }
+    
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    
+    public File getAvatarFile() {
+        return avatarFile;
+    }
+    
+    public void setAvatarFile(File avatarFile) {
+        this.avatarFile = avatarFile;
+        if (avatarFile != null) {
+            // Create RequestBody from file
+            RequestBody requestFile = RequestBody.create(
+                    MediaType.parse("image/*"),
+                    avatarFile
+            );
+            
+            // Create MultipartBody.Part from the RequestBody
+            avatarPart = MultipartBody.Part.createFormData(
+                    "file",
+                    avatarFile.getName(), 
+                    requestFile
+            );
+        }
+    }
+    
+    public MultipartBody.Part getAvatarPart() {
+        return avatarPart;
+    }
+    
+    // Helper method to create RequestBody from string
+    public static RequestBody createPartFromString(String value) {
+        return RequestBody.create(MediaType.parse("text/plain"), value != null ? value : "");
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+}
