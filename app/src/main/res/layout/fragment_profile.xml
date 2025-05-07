@@ -31,14 +31,17 @@
 
 
     <ScrollView
+        android:id="@+id/scroll_view_profile"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:focusableInTouchMode="true">
 
 
             <FrameLayout
@@ -51,7 +54,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/gcl"
                     app:shapeAppearanceOverlay="@style/ProfileImageRounded" />
 
 
@@ -91,13 +93,20 @@
                         android:textColor="@color/Neutral_80"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/tv_display_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="John Doe"
-                        android:textColor="@color/Neutral_80" />
+                        android:background="@null"
+                        android:gravity="center_vertical|end"
+                        android:hint="Enter display name"
+                        android:inputType="textPersonName"
+                        android:minWidth="120dp"
+                        android:padding="4dp"
+                        android:textColor="@color/Neutral_80"
+                        android:focusable="true"
+                        android:focusableInTouchMode="false"
+                        android:longClickable="true" />
                 </LinearLayout>
 
                 <View style="@style/SettingDivider" />
@@ -117,13 +126,20 @@
                         android:textColor="@color/Neutral_80"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/tv_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="johndoe"
-                        android:textColor="@color/Neutral_80" />
+                        android:background="@null"
+                        android:gravity="center_vertical|end"
+                        android:hint="Enter username"
+                        android:inputType="text"
+                        android:minWidth="120dp"
+                        android:padding="4dp"
+                        android:textColor="@color/Neutral_80"
+                        android:focusable="true"
+                        android:focusableInTouchMode="false"
+                        android:longClickable="true" />
                 </LinearLayout>
 
                 <View style="@style/SettingDivider" />
@@ -195,13 +211,20 @@
                         android:textColor="@color/Neutral_80"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/tv_birthdate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="01 January 2001"
-                        android:textColor="@color/Neutral_80" />
+                        android:background="@null"
+                        android:gravity="center_vertical|end"
+                        android:hint="DD/MM/YYYY"
+                        android:inputType="date"
+                        android:minWidth="120dp"
+                        android:padding="4dp"
+                        android:textColor="@color/Neutral_80"
+                        android:focusable="true"
+                        android:focusableInTouchMode="false"
+                        android:longClickable="true" />
                 </LinearLayout>
 
             </LinearLayout>
