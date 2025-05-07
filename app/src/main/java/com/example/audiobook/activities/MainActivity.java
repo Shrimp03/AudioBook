@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import com.example.audiobook.R;
 import com.example.audiobook.fragments.HomeFragment;
+import com.example.audiobook.fragments.LibraryFragment;
 import com.example.audiobook.fragments.PlayerFragment;
 import com.example.audiobook.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -40,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
         } else if (itemId == R.id.nav_search) {
             return new SearchFragment();
         }
-        return null;
+        else {
+            return new LibraryFragment();
+        }
     }
 
     // Switches to the specified fragment if it is not null
