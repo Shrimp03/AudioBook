@@ -1,5 +1,8 @@
 package com.example.audiobook.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +21,8 @@ import com.example.audiobook.adapters.CategoryAdapter;
 import com.example.audiobook.adapters.HomeAudioBookAdapter;
 import com.example.audiobook.dto.response.AudioBookResponse;
 import com.example.audiobook.viewmodel.HomeViewModel;
+import com.example.audiobook.viewmodel.LoginViewModel;
+
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
@@ -29,10 +34,12 @@ public class HomeFragment extends Fragment {
     // UI components
     private RecyclerView categoryRecyclerView;
     private RecyclerView recommendAudioBookRecyclerView;
+    private RecyclerView newReleaseAudioBookRecyclerView;
 
     // Adapters for RecyclerViews
     private CategoryAdapter categoryAdapter;
     private HomeAudioBookAdapter recommendAudioBookAdapter;
+    private HomeAudioBookAdapter newReleaseAudioBookAdapter;
 
     // ViewModel for data handling
     private HomeViewModel homeViewModel;
@@ -54,6 +61,8 @@ public class HomeFragment extends Fragment {
                     .addToBackStack(null)
                     .commit();
         });
+        SharedPreferences preferences = requireActivity().getSharedPreferences(LoginViewModel.PREFS_NAME, MODE_PRIVATE);
+        String token = preferences.getString(LoginViewModel.TOKEN_KEY, null);
 
         // Initialize RecyclerViews
         setupRecyclerViews(view);
@@ -66,7 +75,8 @@ public class HomeFragment extends Fragment {
 
         // Fetch data
         homeViewModel.fetchCategories();
-        homeViewModel.fetchRecommendedAudiobooks();
+        homeViewModel.fetchRecommendedAudiobooks(token);
+        homeViewModel.fetchNewReleaseAudiobooks();
 
         return view;
     }
@@ -79,11 +89,17 @@ public class HomeFragment extends Fragment {
         categoryAdapter = new CategoryAdapter(new ArrayList<>(), category -> navigateToCategoryDetail(category.getId(), category.getName()));
         categoryRecyclerView.setAdapter(categoryAdapter);
 
+
         // Initialize recommended audiobooks RecyclerView
         recommendAudioBookRecyclerView = view.findViewById(R.id.recommend_recycler_view);
         recommendAudioBookRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recommendAudioBookAdapter = new HomeAudioBookAdapter(new ArrayList<>(), audiobook -> navigateToAudioBookDetail(audiobook));
         recommendAudioBookRecyclerView.setAdapter(recommendAudioBookAdapter);
+
+        newReleaseAudioBookRecyclerView = view.findViewById(R.id.release_recycler_view);
+        newReleaseAudioBookRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        newReleaseAudioBookAdapter = new HomeAudioBookAdapter(new ArrayList<>(), audiobook -> navigateToAudioBookDetail(audiobook));
+        newReleaseAudioBookRecyclerView.setAdapter(newReleaseAudioBookAdapter);
     }
 
     // Observes ViewModel LiveData for updates
@@ -98,6 +114,11 @@ public class HomeFragment extends Fragment {
         homeViewModel.recommendedAudiobooks.observe(getViewLifecycleOwner(), audiobooks -> {
             Log.d(TAG, "Loaded audiobooks: " + audiobooks.size());
             recommendAudioBookAdapter.updateAudioBooks(audiobooks);
+        });
+
+        homeViewModel.newReleaseAudiobooks.observe(getViewLifecycleOwner(), audiobooks -> {
+            Log.d(TAG, "Loaded audiobooks: " + audiobooks.size());
+            newReleaseAudioBookAdapter.updateAudioBooks(audiobooks);
         });
 
         // Observe errors

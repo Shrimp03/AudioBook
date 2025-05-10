@@ -30,6 +30,12 @@ public class HomeViewModel extends ViewModel {
     private final MutableLiveData<List<AudioBookResponse>> _recommendedAudiobooks = new MutableLiveData<>();
     public LiveData<List<AudioBookResponse>> recommendedAudiobooks = _recommendedAudiobooks;
 
+    private final MutableLiveData<List<AudioBookResponse>> _newReleaseAudiobooks = new MutableLiveData<>();
+    public LiveData<List<AudioBookResponse>> newReleaseAudiobooks = _newReleaseAudiobooks;
+
+    private final MutableLiveData<List<AudioBookResponse>> _bestSellerAudiobooks = new MutableLiveData<>();
+    public LiveData<List<AudioBookResponse>> bestSellerAudiobooks = _bestSellerAudiobooks;
+
     private final MutableLiveData<String> _error = new MutableLiveData<>();
     public LiveData<String> error = _error;
 
@@ -51,12 +57,30 @@ public class HomeViewModel extends ViewModel {
         });
     }
 
-    public void fetchRecommendedAudiobooks() {
-        audioBookRepository.getAllAudioBooks().enqueue(new Callback<ResponseObject<PageResponse<AudioBookResponse>>>() {
+    public void fetchRecommendedAudiobooks(String token) {
+        audioBookRepository.getRecommend(token).enqueue(new Callback<ResponseObject<PageResponse<AudioBookResponse>>>() {
             @Override
             public void onResponse(Call<ResponseObject<PageResponse<AudioBookResponse>>> call, Response<ResponseObject<PageResponse<AudioBookResponse>>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     _recommendedAudiobooks.setValue((response.body().getData()).getContent());
+                } else {
+                    _error.setValue("Failed to load audiobooks.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseObject<PageResponse<AudioBookResponse>>> call, Throwable t) {
+                _error.setValue("API error: " + t.getMessage());
+            }
+        });
+    }
+
+    public void fetchNewReleaseAudiobooks() {
+        audioBookRepository.getNewRelease().enqueue(new Callback<ResponseObject<PageResponse<AudioBookResponse>>>() {
+            @Override
+            public void onResponse(Call<ResponseObject<PageResponse<AudioBookResponse>>> call, Response<ResponseObject<PageResponse<AudioBookResponse>>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    _newReleaseAudiobooks.setValue((response.body().getData()).getContent());
                 } else {
                     _error.setValue("Failed to load audiobooks.");
                 }
