@@ -5,6 +5,7 @@ import static com.example.audiobook.api.APIconst.BASE_URL;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.audiobook.api.CoreAppInterface;
+import com.example.audiobook.dto.request.FCMTokenRequest;
 import com.example.audiobook.dto.request.RegisterRequest;
 import com.example.audiobook.dto.response.ResponseObject;
 import com.example.audiobook.dto.response.UserResponse;
@@ -40,5 +41,9 @@ public class UserRepository {
 
     public Call<UserResponse> getUserInfor(String id){
         return coreAppInterface.getUserInfor(id);
+    }
+
+    public Call<UserResponse> updatedFcmToken(FCMTokenRequest fcmTokenRequest){
+        return coreAppInterface.updatedFcmToken(fcmTokenRequest);
     }
 }

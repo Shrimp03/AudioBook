@@ -5,26 +5,34 @@ import static com.example.audiobook.viewmodel.LoginViewModel.TOKEN_KEY;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.audiobook.R;
+import com.example.audiobook.api.UserApi;
+import com.example.audiobook.dto.request.FCMTokenRequest;
 import com.example.audiobook.dto.request.LoginRequest;
 import com.example.audiobook.dto.response.MessageKey;
 import com.example.audiobook.dto.response.ResponseObject;
+import com.example.audiobook.dto.response.UserResponse;
 import com.example.audiobook.repository.CategoryRepository;
+import com.example.audiobook.repository.UserRepository;
 import com.example.audiobook.viewmodel.LoginViewModel;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
+    private static final String TAG = "LoginActivity";
     // UI components
     private EditText editTextUsername;
     private EditText editTextPassword;
@@ -33,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
     // ViewModel for handling login logic
     private LoginViewModel loginViewModel;
     private CategoryRepository categoryRepository;
+    private UserRepository userRepository;
+    private UserApi userApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         initializeViewModel();
         setupListeners();
         observeLoginResult();
+        userRepository = new UserRepository();
     }
 
     // Initializes UI components from the layout.
@@ -91,7 +102,8 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferences prefs = getSharedPreferences(LoginViewModel.PREFS_NAME, MODE_PRIVATE);
                     String token = prefs.getString(TOKEN_KEY, null);
                     if(token != null){
-                        navigateToMain(token);
+                        // Get FCM token and send to backend
+                        getAndSendFCMToken(token);
                     }
                     else {
                         Toast.makeText(LoginActivity.this, "Lỗi khi không có token: " + token, Toast.LENGTH_SHORT).show();
@@ -99,6 +111,50 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void getAndSendFCMToken(String authToken) {
+        FirebaseMessaging.getInstance().getToken()
+            .addOnCompleteListener(task -> {
+                if (!task.isSuccessful()) {
+                    Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                    return;
+                }
+
+                // Get new FCM registration token
+                String fcmToken = task.getResult();
+                Log.d(TAG, "FCM Token: " + fcmToken);
+                String userId = null;
+                try{
+                    com.auth0.android.jwt.JWT jwt = new com.auth0.android.jwt.JWT(authToken);
+                    userId   = jwt.getClaim("sub").asString();
+
+                }catch (com.auth0.android.jwt.DecodeException e){
+                    e.printStackTrace();
+                }
+
+                // Send FCM token to backend
+                FCMTokenRequest request = new FCMTokenRequest(userId, fcmToken);
+                userRepository.updatedFcmToken(request).enqueue(new Callback<UserResponse>() {
+                    @Override
+                    public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
+                        if (response.isSuccessful()) {
+                            Log.d(TAG, "FCM token updated successfully");
+                        } else {
+                            Log.e(TAG, "Failed to update FCM token: " + response.code());
+                        }
+                        // Navigate to appropriate screen regardless of FCM token update result
+                        navigateToMain(authToken);
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
+                        Log.e(TAG, "Error updating FCM token", t);
+                        // Navigate to appropriate screen even if FCM token update fails
+                        navigateToMain(authToken);
+                    }
+                });
+            });
     }
 
     // Navigates to the RegisterActivity.
