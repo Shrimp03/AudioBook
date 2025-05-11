@@ -61,6 +61,12 @@ public interface CoreAppInterface {
     @GET(APIconst.GET_AUDIO_BOOKS)
     Call<ResponseObject<PageResponse<AudioBookResponse>>> getAllAudioBooks();
 
+    @GET(APIconst.GET_RECOMMEND)
+    Call<ResponseObject<PageResponse<AudioBookResponse>>> getRecommend(@Header("Authorization") String authorization);
+
+    @GET(APIconst.GET_NEW_RELEASE)
+    Call<ResponseObject<PageResponse<AudioBookResponse>>> getNewRelease();
+
     @GET(APIconst.GET_AUDIO_BOOKS_BY_TITLE)
     Call<List<AudioBookResponse>> getAudioBooksByTitle(@Query("title") String title);
 
