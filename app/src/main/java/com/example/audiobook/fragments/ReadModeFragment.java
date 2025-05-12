@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,11 +27,12 @@ public class ReadModeFragment extends DialogFragment {
     private TextView bookDescription;
     private TextView progressText;
     private SeekBar progressSlider;
+    private ScrollView scrollView;
+    private int totalLines;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Set the style to fullscreen
         setStyle(DialogFragment.STYLE_NORMAL, R.style.FullscreenDialogTheme);
     }
 
@@ -48,6 +51,7 @@ public class ReadModeFragment extends DialogFragment {
         bookDescription = view.findViewById(R.id.book_description);
         progressText = view.findViewById(R.id.progress_text);
         progressSlider = view.findViewById(R.id.progress_slider);
+        scrollView = view.findViewById(R.id.scroll_view);
 
         ImageView backButton = view.findViewById(R.id.back_button);
         ImageView menuButton = view.findViewById(R.id.menu_button);
@@ -56,7 +60,7 @@ public class ReadModeFragment extends DialogFragment {
         Bundle arguments = getArguments();
         if (arguments != null) {
             String title = arguments.getString("title");
-            String description = arguments.getString("description");
+            String content = arguments.getString("content");
 
             // Map data to UI elements
             if (title != null) {
@@ -66,29 +70,47 @@ public class ReadModeFragment extends DialogFragment {
                     headerTitle.setText(title);
                 }
             }
-            if (description != null) {
-                bookDescription.setText(description);
+            if (content != null) {
+                bookDescription.setText(content);
             }
         }
 
-        // Mock total pages (replace with actual data if available)
-        final int totalPages = 278;
-        progressSlider.setMax(totalPages);
-        progressSlider.setProgress(67); // Starting progress
-        updateProgressText(67, totalPages);
-
         // Set click listeners
         backButton.setOnClickListener(v -> dismiss());
-
         menuButton.setOnClickListener(v -> showToast("Menu clicked"));
 
+        // Get total lines and set SeekBar max after layout is drawn
+        bookDescription.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                bookDescription.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                totalLines = bookDescription.getLineCount();
+                progressSlider.setMax(totalLines);
+
+                // Initialize progress based on last visible line
+                int scrollViewHeight = scrollView.getHeight();
+                int lineHeight = bookDescription.getLineHeight();
+                int scrollY = scrollView.getScrollY();
+                int firstVisibleLine = scrollY / lineHeight;
+                int visibleLineCount = scrollViewHeight / lineHeight;
+                int lastVisibleLine = Math.min(firstVisibleLine + visibleLineCount, totalLines);
+                progressSlider.setProgress(lastVisibleLine);
+                updateProgressText(lastVisibleLine, totalLines);
+            }
+        });
+
+        // SeekBar listener to scroll content
         progressSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
-                    updateProgressText(progress, totalPages);
-                    // Here you can implement logic to scroll the description to the corresponding section
-                    // For simplicity, we're just updating the progress text
+                    updateProgressText(progress, totalLines);
+                    // Scroll to the corresponding line
+                    if (totalLines > 0) {
+                        int lineHeight = bookDescription.getLineHeight();
+                        int scrollY = (progress - 1) * lineHeight;
+                        scrollView.smoothScrollTo(0, scrollY);
+                    }
                 }
             }
 
@@ -102,6 +124,20 @@ public class ReadModeFragment extends DialogFragment {
                 // Optional: Resume any animations or updates
             }
         });
+
+        // ScrollView listener to update SeekBar based on last visible line
+        scrollView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if (totalLines > 0) {
+                // Calculate the last visible line
+                int scrollViewHeight = scrollView.getHeight();
+                int lineHeight = bookDescription.getLineHeight();
+                int firstVisibleLine = scrollY / lineHeight;
+                int visibleLineCount = scrollViewHeight / lineHeight;
+                int lastVisibleLine = Math.min(firstVisibleLine + visibleLineCount, totalLines);
+                progressSlider.setProgress(lastVisibleLine);
+                updateProgressText(lastVisibleLine, totalLines);
+            }
+        });
     }
 
     @Override
@@ -111,15 +147,15 @@ public class ReadModeFragment extends DialogFragment {
         if (dialog != null) {
             Window window = dialog.getWindow();
             if (window != null) {
-                // Set layout to fullscreen
                 window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-                window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+                window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+                window.getDecorView().setSystemUiVisibility(0);
             }
         }
     }
 
-    private void updateProgressText(int currentPage, int totalPages) {
-        progressText.setText(currentPage + " of " + totalPages);
+    private void updateProgressText(int currentLine, int totalLines) {
+        progressText.setText(currentLine + " of " + totalLines);
     }
 
     private void showToast(String message) {

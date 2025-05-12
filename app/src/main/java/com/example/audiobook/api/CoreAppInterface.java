@@ -10,7 +10,6 @@ import com.example.audiobook.dto.response.CategoryResponse;
 import com.example.audiobook.dto.response.LoginResponse;
 import com.example.audiobook.dto.response.ResponseObject;
 import com.example.audiobook.dto.response.AudioBookResponse;
-import com.example.audiobook.dto.response.BookChapterResponse;
 import com.example.audiobook.dto.response.PageResponse;
 import com.example.audiobook.dto.response.UserResponse;
 import com.google.gson.Gson;
@@ -88,10 +87,6 @@ public interface CoreAppInterface {
 
     @GET(APIconst.GET_AUDIO_BOOK_BY_ID)
     Call<ResponseObject> getAudioBooksById(@Path("audioBookId") String audioBookId);
-
-    // Book chapter
-    @GET(APIconst.GET_BOOK_CHAPTERS_BY_AUDIO_BOOK_ID)
-    Call<ResponseObject<List<BookChapterResponse>>> getBookChaptersByAudioBookId(@Path("audioBookId") String audioBookId);
 
     @POST(APIconst.CREATE_AUDIO_BOOK)
     Call<ResponseObject<AudioBookCreateResponse>> createAudioBook(@Header("Authorization") String authorization, @Body AudioBookCreateRequest audioBookCreateRequest);

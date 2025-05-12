@@ -28,9 +28,19 @@ public class AudioBookResponse {
 
     private String title;
 
+    private String textContent;
+
     private CategoryResponse categoryResponse;
 
     private UUID userId;
+
+    public String getTextContent() {
+        return textContent;
+    }
+
+    public void setTextContent(String textContent) {
+        this.textContent = textContent;
+    }
 
     // Constructor
     public AudioBookResponse() {
