@@ -2,6 +2,8 @@ package com.example.audiobook.repository;
 
 import static com.example.audiobook.api.APIconst.BASE_URL;
 
+import android.util.Log;
+
 import com.example.audiobook.api.CoreAppInterface;
 import com.example.audiobook.dto.request.AudioBookCreateRequest;
 import com.example.audiobook.dto.response.AudioBookCreateResponse;
@@ -46,5 +48,23 @@ public class AudioBookRepository {
 
     public Call<UploadResponse> uploadAudio(MultipartBody.Part file) {
         return coreAppInterface.uploadAudio(file);
+    }
+
+    public Call<ResponseObject<PageResponse<AudioBookResponse>>> getAudioBooksByUser(String token) {
+        return coreAppInterface.getAudioBooksByUser("Bearer " + token);
+    }
+
+    public Call<ResponseObject<PageResponse<AudioBookResponse>>> getAudioBooksBySearchWithUser(String token, String searchTxt){
+        Log.d("audio repo", token + "   " + searchTxt );
+
+        return coreAppInterface.getAudioBooksBySearchWithUser("Bearer " + token, searchTxt);
+    }
+
+    public Call<ResponseObject<AudioBookResponse>> updateAudioBook(String token, AudioBookCreateRequest audioBookCreateRequest, String id) {
+        return coreAppInterface.updateAudioBook("Bearer " + token, audioBookCreateRequest, id);
+    }
+
+    public Call<ResponseObject> deleteAudioBook(String token,String id) {
+        return coreAppInterface.deleteAudioBook("Bearer " + token, id);
     }
 }

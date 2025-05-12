@@ -26,7 +26,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.audiobook.R;
 import com.example.audiobook.dto.request.AudioBookCreateRequest;
-import com.example.audiobook.dto.response.AudioBookCreateResponse;
+import com.example.audiobook.dto.response.AudioBookResponse;
 import com.example.audiobook.dto.response.CategoryResponse;
 import com.example.audiobook.dto.response.ResponseObject;
 import com.example.audiobook.dto.response.UploadResponse;
@@ -56,12 +56,12 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 
-public class UploadAudioFragment extends Fragment {
+public class UpdateAudioFragment extends Fragment {
 
-    private static final String TAG = "UploadAudioFragment";
+    private static final String TAG = "UpdateAudioFragment";
     private static final long MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
     private Button btnSelectImage, btnUploadImage, btnSelectFemaleAudio, btnUploadFemaleAudio,
-            btnSelectMaleAudio, btnUploadMaleAudio, btnCreateAudiobook;
+            btnSelectMaleAudio, btnUploadMaleAudio, btnUpdateAudiobook;
     private EditText etTitle, etAuthor, etPublishYear, etDescription, etDuration,
             etCoverImage, etFemaleAudioUrl, etMaleAudioUrl, editTxtAudioBook;
     private CheckBox cbIsFree;
@@ -74,6 +74,7 @@ public class UploadAudioFragment extends Fragment {
     private ActivityResultLauncher<Intent> imagePickerLauncher, femaleAudioPickerLauncher, maleAudioPickerLauncher;
     private String authToken; // Lưu token từ SharedPreferences
     private List<CategoryResponse> categoryList = new ArrayList<>(); // Lưu danh sách category từ API
+    private String audioBookId; // ID của audiobook cần cập nhật
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -146,7 +147,7 @@ public class UploadAudioFragment extends Fragment {
         btnUploadFemaleAudio = view.findViewById(R.id.btn_upload_female_audio);
         btnSelectMaleAudio = view.findViewById(R.id.btn_select_male_audio);
         btnUploadMaleAudio = view.findViewById(R.id.btn_upload_male_audio);
-        btnCreateAudiobook = view.findViewById(R.id.btn_create_audiobook);
+        btnUpdateAudiobook = view.findViewById(R.id.btn_create_audiobook);
         etTitle = view.findViewById(R.id.et_title);
         etAuthor = view.findViewById(R.id.et_author);
         etPublishYear = view.findViewById(R.id.et_publish_year);
@@ -159,6 +160,9 @@ public class UploadAudioFragment extends Fragment {
         cbIsFree = view.findViewById(R.id.cb_is_free);
         spinnerCategory = view.findViewById(R.id.spinner_category);
         progressBar = view.findViewById(R.id.progress_bar_upload);
+
+        // Đổi tên nút "Tạo Audiobook" thành "Cập Nhật Audiobook"
+        btnUpdateAudiobook.setText("Cập Nhật Audiobook");
 
         // Cấu hình OkHttp với timeout
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -178,6 +182,9 @@ public class UploadAudioFragment extends Fragment {
         // Cấu hình Spinner danh mục
         setupCategorySpinner();
 
+        // Nhận dữ liệu từ Bundle và điền vào form
+        loadAudioBookData();
+
         // Gắn sự kiện click
         btnSelectImage.setOnClickListener(v -> openImagePicker());
         btnUploadImage.setOnClickListener(v -> uploadImage());
@@ -185,9 +192,38 @@ public class UploadAudioFragment extends Fragment {
         btnUploadFemaleAudio.setOnClickListener(v -> uploadFemaleAudio());
         btnSelectMaleAudio.setOnClickListener(v -> openMaleAudioPicker());
         btnUploadMaleAudio.setOnClickListener(v -> uploadMaleAudio());
-        btnCreateAudiobook.setOnClickListener(v -> createAudiobook());
+        btnUpdateAudiobook.setOnClickListener(v -> updateAudiobook());
 
         return view;
+    }
+
+    private void loadAudioBookData() {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            audioBookId = bundle.getString("audioBookId", "");
+            etTitle.setText(bundle.getString("title", ""));
+            etAuthor.setText(bundle.getString("author", ""));
+            etPublishYear.setText(String.valueOf(bundle.getInt("publishedYear", 0)));
+            etDescription.setText(bundle.getString("description", ""));
+            // Chuyển đổi thời lượng từ giây sang mm:ss
+            int durationSeconds = bundle.getInt("duration", 0);
+            String duration = String.format("%02d:%02d", durationSeconds / 60, durationSeconds % 60);
+            etDuration.setText(duration);
+            etCoverImage.setText(bundle.getString("coverImage", ""));
+            etFemaleAudioUrl.setText(bundle.getString("femaleAudioUrl", ""));
+            etMaleAudioUrl.setText(bundle.getString("maleAudioUrl", ""));
+            editTxtAudioBook.setText(bundle.getString("textContent", ""));
+            cbIsFree.setChecked(bundle.getBoolean("isFree", false));
+
+            // Đặt giá trị cho spinnerCategory
+            String categoryName = bundle.getString("categoryName", "");
+            for (int i = 0; i < categoryList.size(); i++) {
+                if (categoryList.get(i).getName().equals(categoryName)) {
+                    spinnerCategory.setSelection(i);
+                    break;
+                }
+            }
+        }
     }
 
     private void setupCategorySpinner() {
@@ -219,6 +255,9 @@ public class UploadAudioFragment extends Fragment {
                             android.R.layout.simple_spinner_item, categoryNames);
                     apiAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinnerCategory.setAdapter(apiAdapter);
+
+                    // Sau khi tải danh mục, điền lại dữ liệu audiobook
+                    loadAudioBookData();
                 } else {
                     Toast.makeText(getContext(), "Lỗi tải danh mục: HTTP " + response.code(), Toast.LENGTH_SHORT).show();
                 }
@@ -394,7 +433,6 @@ public class UploadAudioFragment extends Fragment {
                     etMaleAudioUrl.getText().toString().trim().isEmpty();
 
             if (shouldTranscribe) {
-                // Gọi API transcribe
                 Call<ApiResponse> transcribeCall = apiService.uploadAudio(body);
                 transcribeCall.enqueue(new Callback<ApiResponse>() {
                     @Override
@@ -418,7 +456,6 @@ public class UploadAudioFragment extends Fragment {
                 Log.d(TAG, "Skipping transcribe: editTxtAudioBook and male audio URL already set");
             }
 
-            // Gọi API upload audio
             Call<UploadResponse> uploadCall = audioBookRepository.uploadAudio(body);
             uploadCall.enqueue(new Callback<UploadResponse>() {
                 @Override
@@ -490,12 +527,10 @@ public class UploadAudioFragment extends Fragment {
             progressBar.setVisibility(View.VISIBLE);
             disableButtons();
 
-            // Kiểm tra xem có cần gọi API transcribe không
             boolean shouldTranscribe = editTxtAudioBook.getText().toString().trim().isEmpty() ||
                     etFemaleAudioUrl.getText().toString().trim().isEmpty();
 
             if (shouldTranscribe) {
-                // Gọi API transcribe
                 Call<ApiResponse> transcribeCall = apiService.uploadAudio(body);
                 transcribeCall.enqueue(new Callback<ApiResponse>() {
                     @Override
@@ -519,7 +554,6 @@ public class UploadAudioFragment extends Fragment {
                 Log.d(TAG, "Skipping transcribe: editTxtAudioBook and female audio URL already set");
             }
 
-            // Gọi API upload audio
             Call<UploadResponse> uploadCall = audioBookRepository.uploadAudio(body);
             uploadCall.enqueue(new Callback<UploadResponse>() {
                 @Override
@@ -555,7 +589,7 @@ public class UploadAudioFragment extends Fragment {
         }
     }
 
-    private void createAudiobook() {
+    private void updateAudiobook() {
         if (!validateInputs()) {
             return;
         }
@@ -600,28 +634,28 @@ public class UploadAudioFragment extends Fragment {
             UUID categoryId = UUID.fromString(categoryList.get(selectedCategoryPosition).getId());
             request.setCategoryId(categoryId);
 
-            Log.d(TAG, "Creating audiobook: " + request.getTitle());
+            Log.d(TAG, "Updating audiobook: " + request.getTitle());
             progressBar.setVisibility(View.VISIBLE);
             disableButtons();
 
-            Call<ResponseObject<AudioBookCreateResponse>> call = audioBookRepository.createAudioBook(authToken, request);
-            call.enqueue(new Callback<ResponseObject<AudioBookCreateResponse>>() {
+            Call<ResponseObject<AudioBookResponse>> call = audioBookRepository.updateAudioBook(authToken, request,audioBookId);
+            call.enqueue(new Callback<ResponseObject<AudioBookResponse>>() {
                 @Override
-                public void onResponse(Call<ResponseObject<AudioBookCreateResponse>> call, Response<ResponseObject<AudioBookCreateResponse>> response) {
+                public void onResponse(Call<ResponseObject<AudioBookResponse>> call, Response<ResponseObject<AudioBookResponse>> response) {
                     progressBar.setVisibility(View.GONE);
                     enableButtons();
 
-                    Log.d(TAG, "Create audiobook response code: " + response.code());
+                    Log.d(TAG, "Update audiobook response code: " + response.code());
                     if (!isAdded() || getContext() == null) {
                         Log.e(TAG, "Fragment is detached, cannot show Toast or navigate");
                         return;
                     }
 
                     if (response.isSuccessful() && response.body() != null) {
-                        ResponseObject<AudioBookCreateResponse> responseObject = response.body();
+                        ResponseObject<AudioBookResponse> responseObject = response.body();
                         if (responseObject.getData() != null) {
-                            AudioBookCreateResponse createResponse = responseObject.getData();
-                            String message = createResponse.getMessage() != null ? createResponse.getMessage() : "Tạo audiobook thành công";
+                            AudioBookResponse updatedAudioBook = responseObject.getData();
+                            String message = responseObject.getMessage() != null ? responseObject.getMessage() : "Cập nhật audiobook thành công";
                             Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
                             Log.d(TAG, "Navigating to LibraryFragment");
                             try {
@@ -654,11 +688,11 @@ public class UploadAudioFragment extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<ResponseObject<AudioBookCreateResponse>> call, Throwable t) {
+                public void onFailure(Call<ResponseObject<AudioBookResponse>> call, Throwable t) {
                     progressBar.setVisibility(View.GONE);
                     enableButtons();
 
-                    Log.e(TAG, "Create audiobook error: " + t.getMessage(), t);
+                    Log.e(TAG, "Update audiobook error: " + t.getMessage(), t);
                     if (isAdded() && getContext() != null) {
                         String errorMessage = t.getMessage() != null ? t.getMessage() : "Lỗi kết nối không xác định";
                         Toast.makeText(getContext(), "Lỗi kết nối: " + errorMessage, Toast.LENGTH_LONG).show();
@@ -680,23 +714,6 @@ public class UploadAudioFragment extends Fragment {
                 Toast.makeText(getContext(), "Lỗi: " + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
-    }
-
-    private void resetForm() {
-        etTitle.setText("");
-        etAuthor.setText("");
-        etPublishYear.setText("");
-        etDescription.setText("");
-        etDuration.setText("");
-        etCoverImage.setText("");
-        etFemaleAudioUrl.setText("");
-        etMaleAudioUrl.setText("");
-        editTxtAudioBook.setText("");
-        cbIsFree.setChecked(false);
-        spinnerCategory.setSelection(0);
-        selectedImageUri = null;
-        selectedFemaleAudioUri = null;
-        selectedMaleAudioUri = null;
     }
 
     private boolean validateInputs() {
@@ -745,7 +762,7 @@ public class UploadAudioFragment extends Fragment {
         btnUploadFemaleAudio.setEnabled(false);
         btnSelectMaleAudio.setEnabled(false);
         btnUploadMaleAudio.setEnabled(false);
-        btnCreateAudiobook.setEnabled(false);
+        btnUpdateAudiobook.setEnabled(false);
     }
 
     private void enableButtons() {
@@ -755,7 +772,7 @@ public class UploadAudioFragment extends Fragment {
         btnUploadFemaleAudio.setEnabled(true);
         btnSelectMaleAudio.setEnabled(true);
         btnUploadMaleAudio.setEnabled(true);
-        btnCreateAudiobook.setEnabled(true);
+        btnUpdateAudiobook.setEnabled(true);
     }
 
     public interface ApiService {
