@@ -32,4 +32,12 @@ public class APIconst {
 
     // Book Chapter
     public static final String GET_BOOK_CHAPTERS_BY_AUDIO_BOOK_ID = BASE_URL + "/api/book-chapter/audio-book/{audioBookId}";
+
+    // Audio Book detail
+    public static final String CREATE_AUDIO_BOOK = BASE_URL + "/api/audio-book/create";
+    public static final String UPDATE_AUDIO_BOOK = BASE_URL + "/api/audio-book/update";
+
+    public static final String UPLOAD_IMAGES_AUDIO_BOOK = BASE_URL + "/api/files/cover-image";
+    public static final String UPLOAD_AUDIO_AUDIO_BOOK = BASE_URL + "/api/files/audio";
+
 }

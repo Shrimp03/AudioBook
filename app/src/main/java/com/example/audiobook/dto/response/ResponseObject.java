@@ -20,4 +20,7 @@ public class ResponseObject<T> {
     public String getMessage() {
         return message;
     }
+
+//    public T getError() {
+//    }
 }
