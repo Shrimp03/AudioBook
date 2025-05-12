@@ -1,4 +1,3 @@
-// SearchFragment.java
 package com.example.audiobook.fragments;
 
 import android.os.Bundle;
@@ -9,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,6 +32,7 @@ public class SearchFragment extends Fragment {
     private ImageButton searchButton;
     private ImageView settingImageView;
     private RecyclerView searchRecyclerView;
+    private LinearLayout noResultsLayout; // Thêm biến cho layout không có kết quả
     private SearchAdapter searchAdapter;
     private SearchViewModel searchViewModel;
 
@@ -53,6 +54,7 @@ public class SearchFragment extends Fragment {
             searchButton = view.findViewById(R.id.btnSearch);
             settingImageView = view.findViewById(R.id.ic_setting);
             searchRecyclerView = view.findViewById(R.id.category_recycler_view);
+            noResultsLayout = view.findViewById(R.id.no_results_layout); // Khởi tạo layout không có kết quả
         } catch (Exception e) {
             Log.e(TAG, "Error initializing UI components: " + e.getMessage(), e);
             Toast.makeText(getContext(), "Lỗi khởi tạo giao diện: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -111,12 +113,18 @@ public class SearchFragment extends Fragment {
         try {
             searchViewModel.searchResults.observe(getViewLifecycleOwner(), audiobooks -> {
                 try {
-                    if (audiobooks != null) {
+                    if (audiobooks != null && !audiobooks.isEmpty()) {
+                        // Có kết quả: hiển thị RecyclerView, ẩn no_results_layout
                         Log.d(TAG, "Loaded search results: " + audiobooks.size());
                         searchAdapter.updateAudioBooks(audiobooks);
+                        searchRecyclerView.setVisibility(View.VISIBLE);
+                        noResultsLayout.setVisibility(View.GONE);
                     } else {
+                        // Không có kết quả: ẩn RecyclerView, hiển thị no_results_layout
                         searchAdapter.updateAudioBooks(new ArrayList<>());
-                        Toast.makeText(getContext(), "Không tìm thấy kết quả", Toast.LENGTH_SHORT).show();
+                        searchRecyclerView.setVisibility(View.GONE);
+                        noResultsLayout.setVisibility(View.VISIBLE);
+                        Log.d(TAG, "No search results found");
                     }
                 } catch (Exception e) {
                     Log.e(TAG, "Error updating search results: " + e.getMessage(), e);
@@ -127,6 +135,9 @@ public class SearchFragment extends Fragment {
             searchViewModel.error.observe(getViewLifecycleOwner(), errorMsg -> {
                 Log.e(TAG, "Error from ViewModel: " + errorMsg);
                 Toast.makeText(getContext(), "Lỗi: " + errorMsg, Toast.LENGTH_LONG).show();
+                // Khi có lỗi, cũng hiển thị giao diện không có kết quả
+                searchRecyclerView.setVisibility(View.GONE);
+                noResultsLayout.setVisibility(View.VISIBLE);
             });
         } catch (Exception e) {
             Log.e(TAG, "Error observing ViewModel: " + e.getMessage(), e);
@@ -141,6 +152,8 @@ public class SearchFragment extends Fragment {
                 if (query.isEmpty()) {
                     Toast.makeText(getContext(), "Vui lòng nhập từ khóa tìm kiếm", Toast.LENGTH_SHORT).show();
                     searchAdapter.updateAudioBooks(new ArrayList<>());
+                    searchRecyclerView.setVisibility(View.GONE);
+                    noResultsLayout.setVisibility(View.VISIBLE); // Hiển thị khi query rỗng
                     return;
                 }
                 Log.d(TAG, "Searching for: " + query);

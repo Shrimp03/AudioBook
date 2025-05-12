@@ -79,17 +79,23 @@ public interface CoreAppInterface {
     @GET(APIconst.GET_AUDIO_BOOK_BY_SEARCH)
     Call<ResponseObject<PageResponse<AudioBookResponse>>> getAudioBooksBySearch(@Query("searchTxt") String searchTxt);
 
+    @GET(APIconst.GET_AUDIO_BOOK_BY_SEARCH_WITH_USER)
+    Call<ResponseObject<PageResponse<AudioBookResponse>>> getAudioBooksBySearchWithUser(@Header("Authorization") String authorization, @Query("searchTxt") String searchTxt);
     @GET(APIconst.GET_AUDIO_BOOKS_BY_CATEGORY_ID)
     Call<ResponseObject<PageResponse<AudioBookResponse>>> getAudioBooksByCategoryId(@Path("categoryId") String categoryId);
 
     @GET(APIconst.GET_AUDIO_BOOKS_BY_USER_ID)
-    Call<List<AudioBookResponse>> getAudioBooksByUserId(@Path("userId") String userId);
+    Call<ResponseObject<PageResponse<AudioBookResponse>>> getAudioBooksByUser(@Header("Authorization") String authorization);
 
     @GET(APIconst.GET_AUDIO_BOOK_BY_ID)
     Call<ResponseObject> getAudioBooksById(@Path("audioBookId") String audioBookId);
 
     @POST(APIconst.CREATE_AUDIO_BOOK)
     Call<ResponseObject<AudioBookCreateResponse>> createAudioBook(@Header("Authorization") String authorization, @Body AudioBookCreateRequest audioBookCreateRequest);
+    @POST(APIconst.UPDATE_AUDIO_BOOK)
+    Call<ResponseObject<AudioBookResponse>> updateAudioBook(@Header("Authorization") String authorization, @Body AudioBookCreateRequest audioBookCreateRequest, @Path("id") String id);
+    @POST(APIconst.DELETE_AUDIO_BOOK)
+    Call<ResponseObject> deleteAudioBook(@Header("Authorization") String authorization, @Path("id") String id);
 
     @Multipart
     @POST(APIconst.UPLOAD_IMAGES_AUDIO_BOOK)
