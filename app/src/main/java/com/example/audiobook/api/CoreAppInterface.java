@@ -1,8 +1,11 @@
 package com.example.audiobook.api;
 
 import com.example.audiobook.dto.request.FCMTokenRequest;
+import com.example.audiobook.dto.request.AudioBookCreateRequest;
 import com.example.audiobook.dto.request.LoginRequest;
 import com.example.audiobook.dto.request.RegisterRequest;
+import com.example.audiobook.dto.response.AudioBookCreateResponse;
+import com.example.audiobook.dto.response.UploadResponse;
 import com.example.audiobook.dto.response.CategoryResponse;
 import com.example.audiobook.dto.response.LoginResponse;
 import com.example.audiobook.dto.response.ResponseObject;
@@ -89,6 +92,17 @@ public interface CoreAppInterface {
     // Book chapter
     @GET(APIconst.GET_BOOK_CHAPTERS_BY_AUDIO_BOOK_ID)
     Call<ResponseObject<List<BookChapterResponse>>> getBookChaptersByAudioBookId(@Path("audioBookId") String audioBookId);
+
+    @POST(APIconst.CREATE_AUDIO_BOOK)
+    Call<ResponseObject<AudioBookCreateResponse>> createAudioBook(@Header("Authorization") String authorization, @Body AudioBookCreateRequest audioBookCreateRequest);
+
+    @Multipart
+    @POST(APIconst.UPLOAD_IMAGES_AUDIO_BOOK)
+    Call<UploadResponse>uploadImages(@Part MultipartBody.Part file);
+
+    @Multipart
+    @POST(APIconst.UPLOAD_AUDIO_AUDIO_BOOK)
+    Call<UploadResponse> uploadAudio(@Part MultipartBody.Part file);
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
