@@ -133,6 +133,8 @@ public class HomeFragment extends Fragment {
         bundle.putString("coverImage", audioBook.getCoverImage());
         bundle.putString("categoryName", audioBook.getCategoryResponse().getName());
         bundle.putString("maleAudioUrl", audioBook.getMaleAudioUrl());
+        bundle.putString("femaleAudioUrl", audioBook.getFemaleAudioUrl());
+        bundle.putString("content", audioBook.getTextContent());
 
         AudioBookDetailFragment fragment = new AudioBookDetailFragment();
         fragment.setArguments(bundle);

@@ -136,14 +136,10 @@ public class AudioBookDetailFragment extends Fragment {
 
         // Read button click listener
         readButton.setOnClickListener(v -> {
-            BookChapterFragment bookChapterFragment = new BookChapterFragment();
-            bookChapterFragment.setArguments(getArguments());
+            ReadModeFragment readModeFragment = new ReadModeFragment();
+            readModeFragment.setArguments(getArguments());
             if (getActivity() != null) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, bookChapterFragment)
-                        .addToBackStack(null)
-                        .commit();
+                readModeFragment.show(getActivity().getSupportFragmentManager(), "ReadModeFragment");
             }
         });
 

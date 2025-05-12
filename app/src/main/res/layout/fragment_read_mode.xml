@@ -41,6 +41,7 @@
 
     <!-- Scrollable description -->
     <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -72,5 +73,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:max="278"
-        android:progress="67" />
+        android:progress="67"
+        android:thumb="@drawable/seekbar_thumb"
+        android:progressTint="#4838D1"
+        android:thumbTint="#4838D1"
+        android:thumbOffset="8dp"/>
 </LinearLayout>

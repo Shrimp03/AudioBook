@@ -1,9 +1,5 @@
 <!-- styles.xml -->
 <resources>
-
-
-
-
     <!-- Style cho mỗi mục Setting -->
     <style name="SettingItem">
         <item name="android:layout_width">match_parent</item>
