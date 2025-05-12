@@ -1,11 +1,16 @@
 package com.example.audiobook.api;
 
+import com.example.audiobook.dto.request.FCMTokenRequest;
+import com.example.audiobook.dto.request.AudioBookCreateRequest;
 import com.example.audiobook.dto.request.LoginRequest;
 import com.example.audiobook.dto.request.RegisterRequest;
+import com.example.audiobook.dto.response.AudioBookCreateResponse;
+import com.example.audiobook.dto.response.UploadResponse;
 import com.example.audiobook.dto.response.CategoryResponse;
 import com.example.audiobook.dto.response.LoginResponse;
 import com.example.audiobook.dto.response.ResponseObject;
 import com.example.audiobook.dto.response.AudioBookResponse;
+import com.example.audiobook.dto.response.BookChapterResponse;
 import com.example.audiobook.dto.response.PageResponse;
 import com.example.audiobook.dto.response.UserResponse;
 import com.google.gson.Gson;
@@ -38,6 +43,9 @@ public interface CoreAppInterface {
     @POST(APIconst.LOGIN)
     Call<ResponseObject<LoginResponse>> loginAccount(@Body LoginRequest loginRequest);
 
+    @PUT(APIconst.UPDATED_FCM_TOKEN)
+    Call<UserResponse> updatedFcmToken(@Body FCMTokenRequest fcmTokenRequest);
+
     @Multipart
     @PUT(APIconst.UPDATE_USER + "/{userId}")
     Call<UserResponse> updateUser(@Path("userId") String userId,
@@ -60,6 +68,12 @@ public interface CoreAppInterface {
     @GET(APIconst.GET_AUDIO_BOOKS)
     Call<ResponseObject<PageResponse<AudioBookResponse>>> getAllAudioBooks();
 
+    @GET(APIconst.GET_RECOMMEND)
+    Call<ResponseObject<PageResponse<AudioBookResponse>>> getRecommend(@Header("Authorization") String authorization);
+
+    @GET(APIconst.GET_NEW_RELEASE)
+    Call<ResponseObject<PageResponse<AudioBookResponse>>> getNewRelease();
+
     @GET(APIconst.GET_AUDIO_BOOKS_BY_TITLE)
     Call<List<AudioBookResponse>> getAudioBooksByTitle(@Query("title") String title);
 
@@ -74,6 +88,21 @@ public interface CoreAppInterface {
 
     @GET(APIconst.GET_AUDIO_BOOK_BY_ID)
     Call<ResponseObject> getAudioBooksById(@Path("audioBookId") String audioBookId);
+
+    // Book chapter
+    @GET(APIconst.GET_BOOK_CHAPTERS_BY_AUDIO_BOOK_ID)
+    Call<ResponseObject<List<BookChapterResponse>>> getBookChaptersByAudioBookId(@Path("audioBookId") String audioBookId);
+
+    @POST(APIconst.CREATE_AUDIO_BOOK)
+    Call<ResponseObject<AudioBookCreateResponse>> createAudioBook(@Header("Authorization") String authorization, @Body AudioBookCreateRequest audioBookCreateRequest);
+
+    @Multipart
+    @POST(APIconst.UPLOAD_IMAGES_AUDIO_BOOK)
+    Call<UploadResponse>uploadImages(@Part MultipartBody.Part file);
+
+    @Multipart
+    @POST(APIconst.UPLOAD_AUDIO_AUDIO_BOOK)
+    Call<UploadResponse> uploadAudio(@Part MultipartBody.Part file);
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
