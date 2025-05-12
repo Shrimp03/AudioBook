@@ -1,5 +1,6 @@
 package com.example.audiobook.api;
 
+import com.example.audiobook.dto.request.FCMTokenRequest;
 import com.example.audiobook.dto.request.LoginRequest;
 import com.example.audiobook.dto.request.RegisterRequest;
 import com.example.audiobook.dto.response.CategoryResponse;
@@ -38,6 +39,9 @@ public interface CoreAppInterface {
 
     @POST(APIconst.LOGIN)
     Call<ResponseObject<LoginResponse>> loginAccount(@Body LoginRequest loginRequest);
+
+    @PUT(APIconst.UPDATED_FCM_TOKEN)
+    Call<UserResponse> updatedFcmToken(@Body FCMTokenRequest fcmTokenRequest);
 
     @Multipart
     @PUT(APIconst.UPDATE_USER + "/{userId}")
