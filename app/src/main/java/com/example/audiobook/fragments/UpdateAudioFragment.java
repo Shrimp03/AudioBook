@@ -40,6 +40,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -659,8 +660,10 @@ public class UpdateAudioFragment extends Fragment {
                         ResponseObject<AudioBookResponse> responseObject = response.body();
                         if (responseObject.getData() != null) {
                             AudioBookResponse updatedAudioBook = responseObject.getData();
-                            String message = responseObject.getMessage() != null ? responseObject.getMessage() : "Cập nhật audiobook thành công";
-                            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                            if (responseObject.getMessage() != null) {
+                                String message = "Cập nhật audiobook thành công";
+                                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                            }
                             Log.d(TAG, "Navigating to LibraryFragment");
                             try {
                                 requireActivity()
@@ -740,6 +743,17 @@ public class UpdateAudioFragment extends Fragment {
             etPublishYear.setError("Vui lòng nhập năm xuất bản");
             return false;
         }
+        try {
+            int year = Integer.parseInt(publishYear);
+            int currentYear = Calendar.getInstance().get(Calendar.YEAR); // Lấy năm hiện tại động
+            if (year < 1800 || year > currentYear) {
+                etPublishYear.setError("Năm xuất bản phải từ 1800 đến " + currentYear);
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            etPublishYear.setError("Năm xuất bản phải là số hợp lệ");
+            return false;
+        } 
         if (description.isEmpty()) {
             etDescription.setError("Vui lòng nhập mô tả");
             return false;
