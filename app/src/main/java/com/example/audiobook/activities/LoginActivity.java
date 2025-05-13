@@ -5,6 +5,8 @@ import static com.example.audiobook.viewmodel.LoginViewModel.TOKEN_KEY;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         initializeViews();
         initializeViewModel();
         setupListeners();
+        setupTextWatchers();
         observeLoginResult();
         userRepository = new UserRepository();
     }
@@ -62,6 +65,38 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.edittext_password);
         buttonLogin = findViewById(R.id.button_login);
         textViewRegister = findViewById(R.id.redirect_to_register);
+    }
+
+    // Setup text watchers to handle the UI states
+    private void setupTextWatchers() {
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Not used
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Not used
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                updateEditTextStates();
+            }
+        };
+
+        editTextUsername.addTextChangedListener(textWatcher);
+        editTextPassword.addTextChangedListener(textWatcher);
+        
+        // Initialize states
+        updateEditTextStates();
+    }
+    
+    private void updateEditTextStates() {
+        // Set activated state based on whether there's text
+        editTextUsername.setActivated(!editTextUsername.getText().toString().isEmpty());
+        editTextPassword.setActivated(!editTextPassword.getText().toString().isEmpty());
     }
 
     // Initializes the LoginViewModel.
