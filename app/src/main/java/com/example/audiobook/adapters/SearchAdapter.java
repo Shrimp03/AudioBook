@@ -56,7 +56,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.AudioBookV
 
             String imageUrl = null;
             if (audioBook.getCoverImage() != null) {
-                imageUrl = APIconst.BASE_URL + "/" + audioBook.getCoverImage();
+                imageUrl =  audioBook.getCoverImage();
             }
             Glide.with(holder.itemView.getContext())
                     .load(imageUrl)
