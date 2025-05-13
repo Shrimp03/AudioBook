@@ -66,72 +66,72 @@
         android:background="@drawable/bt_login"
         android:layout_height="wrap_content"
         android:text="@string/login" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/forget_password"
-        android:textColor="#F77A55"
-        android:layout_gravity="right"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="18dp"
-        android:textSize="16sp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Or login with"
-        android:textColor="#2E2E5D"
-        android:layout_gravity="center"
-        android:textSize="20sp"
-        android:layout_marginTop="15dp"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal"
-        >
-        <ImageButton
-            android:id="@+id/login_with_google"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/bt_login_social"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"
-            android:paddingTop="15dp"
-            android:contentDescription="@string/login_with_google"
-            android:paddingBottom="15dp"
-            android:src="@drawable/logos_google"
-            android:layout_height="wrap_content" />
-        <ImageButton
-            android:id="@+id/login_with_facebook"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/bt_login_social"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"
-            android:contentDescription="@string/login_with_facebook"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/logos_facebook"
-            android:layout_height="wrap_content" />
-        <ImageButton
-            android:id="@+id/login_with_twitter"
-            android:layout_width="0dp"
-            android:contentDescription="@string/login_with_twitter"
-            android:layout_weight="1"
-            android:background="@drawable/bt_login_social"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:src="@drawable/logos_twitter"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/forget_password"-->
+<!--        android:textColor="#F77A55"-->
+<!--        android:layout_gravity="right"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="18dp"-->
+<!--        android:textSize="16sp"-->
+<!--        />-->
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Or login with"-->
+<!--        android:textColor="#2E2E5D"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:textSize="20sp"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        />-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="18dp"-->
+<!--        android:layout_marginEnd="18dp"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        >-->
+<!--        <ImageButton-->
+<!--            android:id="@+id/login_with_google"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="@drawable/bt_login_social"-->
+<!--            android:paddingStart="30dp"-->
+<!--            android:paddingEnd="30dp"-->
+<!--            android:paddingTop="15dp"-->
+<!--            android:contentDescription="@string/login_with_google"-->
+<!--            android:paddingBottom="15dp"-->
+<!--            android:src="@drawable/logos_google"-->
+<!--            android:layout_height="wrap_content" />-->
+<!--        <ImageButton-->
+<!--            android:id="@+id/login_with_facebook"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="@drawable/bt_login_social"-->
+<!--            android:paddingStart="30dp"-->
+<!--            android:paddingEnd="30dp"-->
+<!--            android:contentDescription="@string/login_with_facebook"-->
+<!--            android:paddingTop="15dp"-->
+<!--            android:paddingBottom="15dp"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginEnd="10dp"-->
+<!--            android:src="@drawable/logos_facebook"-->
+<!--            android:layout_height="wrap_content" />-->
+<!--        <ImageButton-->
+<!--            android:id="@+id/login_with_twitter"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:contentDescription="@string/login_with_twitter"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="@drawable/bt_login_social"-->
+<!--            android:paddingStart="30dp"-->
+<!--            android:paddingEnd="30dp"-->
+<!--            android:paddingTop="15dp"-->
+<!--            android:paddingBottom="15dp"-->
+<!--            android:src="@drawable/logos_twitter"-->
+<!--            android:layout_height="wrap_content" />-->
+<!--    </LinearLayout>-->
    <LinearLayout
        android:layout_width="wrap_content"
        android:orientation="horizontal"

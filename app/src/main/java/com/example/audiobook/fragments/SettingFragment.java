@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,8 +18,10 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.audiobook.R;
@@ -51,8 +54,12 @@ public class SettingFragment extends Fragment {
     private LoginViewModel loginViewModel;
     private SessionManager sessionManager;
     private TextView tvViewProfile;
+    private TextView tvName;
     private Toolbar toolbar;
     private ProfileViewModel profileViewModel;
+    private SwitchCompat switchNotifications;
+    private static final String PREFS_NOTIFICATIONS = "notifications_prefs";
+    private static final String KEY_NOTIFICATION_ENABLED = "notification_enabled";
 
     public SettingFragment() {
         // Required empty public constructor
@@ -93,6 +100,12 @@ public class SettingFragment extends Fragment {
             }
         });
         
+        profileViewModel.getDisplayName().observe(this, displayName -> {
+            if (tvName != null) {
+                tvName.setText(displayName != null ? displayName : "");
+            }
+        });
+        
         // Initialize ViewModel
         loginViewModel = new ViewModelProvider(requireActivity()).get(LoginViewModel.class);
         
@@ -118,6 +131,26 @@ public class SettingFragment extends Fragment {
         
         // Initialize view profile TextView
         tvViewProfile = view.findViewById(R.id.tv_view_profile);
+        tvName = view.findViewById(R.id.tv_name);
+
+        // Initialize notification switch
+        switchNotifications = view.findViewById(R.id.switch_notifications);
+        
+        // Load saved notification preferences
+        SharedPreferences notificationPrefs = requireActivity().getSharedPreferences(
+                PREFS_NOTIFICATIONS, Context.MODE_PRIVATE);
+        boolean notificationsEnabled = notificationPrefs.getBoolean(KEY_NOTIFICATION_ENABLED, true);
+        switchNotifications.setChecked(notificationsEnabled);
+        
+        // Set listener for notification switch changes
+        switchNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            saveNotificationSettings(isChecked);
+            if (isChecked) {
+                Toast.makeText(requireContext(), "Notifications enabled", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(requireContext(), "Notifications disabled", Toast.LENGTH_SHORT).show();
+            }
+        });
         
         // Set click listener for logout button
         btnLogout.setOnClickListener(v -> handleLogout());
@@ -144,9 +177,11 @@ public class SettingFragment extends Fragment {
     public void onResume() {
         super.onResume();
         
-        // Reload the profile photo when the fragment resumes
-        String imageUrl = profileViewModel.getImageUrl().getValue(); // Replace with actual image URL source
-        updateProfilePhoto(imageUrl);
+        // Reload the user profile information from the server when returning to this fragment
+        String userId = getUserId();
+        if(userId != null) {
+            profileViewModel.fetchUserInformation(userId);
+        }
     }
     
     /**
@@ -211,5 +246,17 @@ public class SettingFragment extends Fragment {
             e.printStackTrace();
         }
         return userId;
+    }
+    
+    /**
+     * Saves the notification settings to SharedPreferences
+     * @param enabled Whether notifications are enabled
+     */
+    private void saveNotificationSettings(boolean enabled) {
+        SharedPreferences notificationPrefs = requireActivity().getSharedPreferences(
+                PREFS_NOTIFICATIONS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = notificationPrefs.edit();
+        editor.putBoolean(KEY_NOTIFICATION_ENABLED, enabled);
+        editor.apply();
     }
 }

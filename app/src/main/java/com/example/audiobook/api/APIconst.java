@@ -1,7 +1,7 @@
 package com.example.audiobook.api;
 
 public class APIconst {
-    public static final String BASE_URL = "https://ac96-2a09-bac1-7aa0-50-00-246-db.ngrok-free.app";
+    public static final String BASE_URL = "https://683b-2a09-bac1-7aa0-50-00-3cf-6.ngrok-free.app";
 
     // Authentication
     public static final String LOGIN = BASE_URL + "/api/auth/token";
@@ -22,20 +22,22 @@ public class APIconst {
     // Audio Book
     public static final String GET_AUDIO_BOOKS = BASE_URL + "/api/audio-book/";
     public static final String GET_RECOMMEND = BASE_URL + "/api/audio-book/recommend";
-    public static final String GET_NEW_RELEASE = BASE_URL + "api/audio-book/new-release";
+    public static final String GET_NEW_RELEASE = BASE_URL + "/api/audio-book/new-release";
     public static final String GET_AUDIO_BOOKS_BY_TITLE = BASE_URL + "/api/audio-book/title";
     public static final String GET_AUDIO_BOOKS_BY_CATEGORY_ID = BASE_URL + "/api/audio-book/category/{categoryId}";
-    public static final String GET_AUDIO_BOOKS_BY_USER_ID = BASE_URL + "/api/audio-book/user/{userId}";
+    public static final String GET_AUDIO_BOOKS_BY_USER_ID = BASE_URL + "/api/audio-book/user";
     public static final String GET_AUDIO_BOOK_BY_ID = BASE_URL + "/api/audio-book/{audioBookId}";
 
     public static final String GET_AUDIO_BOOK_BY_SEARCH = BASE_URL + "/api/audio-book/search";
-
+    public static final String GET_AUDIO_BOOK_BY_SEARCH_WITH_USER = BASE_URL + "/api/audio-book/search-by-user";
     // Book Chapter
     public static final String GET_BOOK_CHAPTERS_BY_AUDIO_BOOK_ID = BASE_URL + "/api/book-chapter/audio-book/{audioBookId}";
 
     // Audio Book detail
     public static final String CREATE_AUDIO_BOOK = BASE_URL + "/api/audio-book/create";
-    public static final String UPDATE_AUDIO_BOOK = BASE_URL + "/api/audio-book/update";
+    public static final String UPDATE_AUDIO_BOOK = BASE_URL + "/api/audio-book/update/{id}";
+
+    public static final String DELETE_AUDIO_BOOK = BASE_URL + "/api/audio-book/delete/{id}";
 
     public static final String UPLOAD_IMAGES_AUDIO_BOOK = BASE_URL + "/api/files/cover-image";
     public static final String UPLOAD_AUDIO_AUDIO_BOOK = BASE_URL + "/api/files/audio";

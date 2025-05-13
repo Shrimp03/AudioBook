@@ -39,9 +39,13 @@ public class ProfileViewModel extends AndroidViewModel {
     private MutableLiveData<String> displayName = new MutableLiveData<>();
     private MutableLiveData<String> dateOfBirth = new MutableLiveData<>();
     private MutableLiveData<String> imageUrl = new MutableLiveData<>();
+    private MutableLiveData<String> email = new MutableLiveData<>();
 
     public LiveData<String> getUsername() {
         return username;
+    }
+    public LiveData<String> getEmail() {
+        return email;
     }
 
     public LiveData<String> getDisplayName() {
@@ -138,6 +142,7 @@ public class ProfileViewModel extends AndroidViewModel {
                     displayName.setValue(userResponse.getDisplayName());
                     dateOfBirth.setValue(userResponse.getDateOfBirth());
                     imageUrl.setValue(userResponse.getImageUrl());
+                    email.setValue(userResponse.getEmail());
                 }
             }
 
