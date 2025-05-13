@@ -16,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -64,6 +65,7 @@ public class UpdateAudioFragment extends Fragment {
             btnSelectMaleAudio, btnUploadMaleAudio, btnUpdateAudiobook;
     private EditText etTitle, etAuthor, etPublishYear, etDescription, etDuration,
             etCoverImage, etFemaleAudioUrl, etMaleAudioUrl, editTxtAudioBook;
+    private TextView titleText;
     private CheckBox cbIsFree;
     private Spinner spinnerCategory;
     private ProgressBar progressBar;
@@ -141,6 +143,7 @@ public class UpdateAudioFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_upload_audio, container, false);
 
         // Ánh xạ các thành phần giao diện
+        titleText = view.findViewById(R.id.tv_upload_title);
         btnSelectImage = view.findViewById(R.id.btn_select_image);
         btnUploadImage = view.findViewById(R.id.btn_upload_image);
         btnSelectFemaleAudio = view.findViewById(R.id.btn_select_female_audio);
@@ -163,6 +166,7 @@ public class UpdateAudioFragment extends Fragment {
 
         // Đổi tên nút "Tạo Audiobook" thành "Cập Nhật Audiobook"
         btnUpdateAudiobook.setText("Cập Nhật Audiobook");
+        titleText.setText("Cập nhật AudioBook");
 
         // Cấu hình OkHttp với timeout
         OkHttpClient okHttpClient = new OkHttpClient.Builder()

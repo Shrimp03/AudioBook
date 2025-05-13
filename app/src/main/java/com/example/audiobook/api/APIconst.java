@@ -1,7 +1,7 @@
 package com.example.audiobook.api;
 
 public class APIconst {
-    public static final String BASE_URL = "http://192.168.31.88:8080";
+    public static final String BASE_URL = "http://172.23.192.1:8080";
 
     // Authentication
     public static final String LOGIN = BASE_URL + "/api/auth/token";
@@ -35,9 +35,9 @@ public class APIconst {
 
     // Audio Book detail
     public static final String CREATE_AUDIO_BOOK = BASE_URL + "/api/audio-book/create";
-    public static final String UPDATE_AUDIO_BOOK = BASE_URL + "/api/audio-book/update";
+    public static final String UPDATE_AUDIO_BOOK = BASE_URL + "/api/audio-book/update/{id}";
 
-    public static final String DELETE_AUDIO_BOOK = BASE_URL + "/api/audio-book/delete";
+    public static final String DELETE_AUDIO_BOOK = BASE_URL + "/api/audio-book/delete/{id}";
 
     public static final String UPLOAD_IMAGES_AUDIO_BOOK = BASE_URL + "/api/files/cover-image";
     public static final String UPLOAD_AUDIO_AUDIO_BOOK = BASE_URL + "/api/files/audio";
