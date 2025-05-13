@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -91,6 +92,9 @@ public class SettingFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+
+        // Kiểm tra trạng thái thông báo ngay khi fragment được tạo để đảm bảo cài đặt FCM phù hợp
+        checkAndApplyNotificationSettings();
 
         profileViewModel.getImageUrl().observe(this, imageUrl -> {
             if (imageUrl != null) {
@@ -253,10 +257,60 @@ public class SettingFragment extends Fragment {
      * @param enabled Whether notifications are enabled
      */
     private void saveNotificationSettings(boolean enabled) {
+        // Lưu trạng thái vào SharedPreferences
         SharedPreferences notificationPrefs = requireActivity().getSharedPreferences(
                 PREFS_NOTIFICATIONS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = notificationPrefs.edit();
         editor.putBoolean(KEY_NOTIFICATION_ENABLED, enabled);
         editor.apply();
+
+        // Xử lý đăng ký/hủy đăng ký FCM dựa vào trạng thái
+        if (enabled) {
+            // Đăng ký nhận thông báo từ FCM
+            com.google.firebase.messaging.FirebaseMessaging.getInstance().subscribeToTopic("all")
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d("FCM", "Subscribed to notifications");
+                    } else {
+                        Log.e("FCM", "Failed to subscribe to notifications", task.getException());
+                    }
+                });
+        } else {
+            // Hủy đăng ký nhận thông báo từ FCM
+            com.google.firebase.messaging.FirebaseMessaging.getInstance().unsubscribeFromTopic("all")
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d("FCM", "Unsubscribed from notifications");
+                    } else {
+                        Log.e("FCM", "Failed to unsubscribe from notifications", task.getException());
+                    }
+                });
+        }
+    }
+    
+    /**
+     * Kiểm tra và áp dụng cài đặt thông báo FCM dựa trên trạng thái đã lưu
+     */
+    private void checkAndApplyNotificationSettings() {
+        SharedPreferences notificationPrefs = requireActivity().getSharedPreferences(
+                PREFS_NOTIFICATIONS, Context.MODE_PRIVATE);
+        boolean notificationsEnabled = notificationPrefs.getBoolean(KEY_NOTIFICATION_ENABLED, true);
+        
+        // Áp dụng trạng thái thông báo FCM mà không cần thay đổi SharedPreferences
+        if (notificationsEnabled) {
+            com.google.firebase.messaging.FirebaseMessaging.getInstance().subscribeToTopic("all")
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d("FCM", "Auto-subscribed to notifications on startup");
+                    }
+                });
+        } else {
+            com.google.firebase.messaging.FirebaseMessaging.getInstance().unsubscribeFromTopic("all")
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d("FCM", "Maintained unsubscribed status on startup");
+                    }
+                });
+        }
     }
 }
