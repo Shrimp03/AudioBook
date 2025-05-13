@@ -38,7 +38,7 @@ public class CategoryDetailAdapter extends RecyclerView.Adapter<CategoryDetailAd
     public void onBindViewHolder(@NonNull AudioBookViewHolder holder, int position) {
         AudioBookResponse audioBook = audioBookResponseList.get(position);
         holder.itemAudioTitle.setText(audioBook.getTitle());
-        String imageUrl = APIconst.BASE_URL + "/" + audioBook.getCoverImage();
+        String imageUrl =  audioBook.getCoverImage();
         Glide.with(holder.itemView.getContext())
                 .load(imageUrl)
                 .placeholder(R.drawable.home)

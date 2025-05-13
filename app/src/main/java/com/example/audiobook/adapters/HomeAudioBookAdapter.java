@@ -36,7 +36,7 @@ public class HomeAudioBookAdapter extends RecyclerView.Adapter<HomeAudioBookAdap
         // Bind data
         holder.itemAudioTitle.setText(audioBook.getTitle());
         // Bind image
-        String imageUrl = APIconst.BASE_URL + "/" +  audioBook.getCoverImage();
+        String imageUrl =   audioBook.getCoverImage();
         Glide.with(holder.itemView.getContext())
                 .load(imageUrl) // URL từ coverImage
                 .placeholder(R.drawable.home) // Hình ảnh hiển thị khi đang tải
