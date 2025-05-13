@@ -24,8 +24,7 @@
             android:layout_height="120dp"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/item_audio_text"
@@ -66,8 +65,8 @@
             android:layout_marginEnd="8dp"
             app:tint="#4838D1"
             app:layout_constraintEnd_toStartOf="@id/icon_delete"
-            app:layout_constraintTop_toTopOf="@id/item_audio_img"
-            app:layout_constraintBottom_toBottomOf="@id/item_audio_img" />
+            app:layout_constraintTop_toTopOf="@id/item_audio_text"
+            app:layout_constraintBottom_toBottomOf="@id/item_audio_author" />
 
         <ImageButton
             android:id="@+id/icon_delete"
@@ -79,8 +78,8 @@
             android:layout_marginEnd="8dp"
             app:tint="#FF0000"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/item_audio_img"
-            app:layout_constraintBottom_toBottomOf="@id/item_audio_img" />
+            app:layout_constraintTop_toTopOf="@id/item_audio_text"
+            app:layout_constraintBottom_toBottomOf="@id/item_audio_author" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
