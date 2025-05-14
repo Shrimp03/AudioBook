@@ -33,6 +33,7 @@ import com.example.audiobook.dto.response.ResponseObject;
 import com.example.audiobook.dto.response.UploadResponse;
 import com.example.audiobook.repository.AudioBookRepository;
 import com.example.audiobook.repository.CategoryRepository;
+import com.example.audiobook.utils.Constant;
 import com.example.audiobook.utils.FileUtils;
 import com.example.audiobook.viewmodel.LoginViewModel;
 
@@ -178,7 +179,7 @@ public class UpdateAudioFragment extends Fragment {
 
         // Khởi tạo Retrofit cho API transcribe
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.31.88:8000/")
+                .baseUrl(Constant.API_AI)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

@@ -247,7 +247,8 @@ public class LibraryFragment extends Fragment {
             bundle.putString("coverImage", audioBook.getCoverImage() != null ? audioBook.getCoverImage() : "");
             bundle.putString("categoryName", audioBook.getCategoryResponse() != null && audioBook.getCategoryResponse().getName() != null ? audioBook.getCategoryResponse().getName() : "");
             bundle.putString("maleAudioUrl", audioBook.getMaleAudioUrl() != null ? audioBook.getMaleAudioUrl() : "");
-            bundle.putString("content",audioBook.getTextContent());
+            bundle.putString("content", audioBook.getTextContent());
+
             AudioBookDetailFragment fragment = new AudioBookDetailFragment();
             fragment.setArguments(bundle);
 
