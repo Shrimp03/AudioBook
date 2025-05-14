@@ -27,16 +27,20 @@ public class AudioBookRepository {
                 .build();
         coreAppInterface = retrofit.create(CoreAppInterface.class);
     }
+
     public Call<ResponseObject<PageResponse<AudioBookResponse>>> getAllAudioBooks(){return coreAppInterface.getAllAudioBooks();};
+
     public Call<ResponseObject<PageResponse<AudioBookResponse>>> getAudioBooksByCategory(String categoryId){return coreAppInterface.getAudioBooksByCategoryId(categoryId);}
+
     public Call<ResponseObject<PageResponse<AudioBookResponse>>> getRecommend(String token){
         return coreAppInterface.getRecommend("Bearer " + token);
     }
+
     public Call<ResponseObject<PageResponse<AudioBookResponse>>> getNewRelease(){
         return coreAppInterface.getNewRelease();
     }
-    public Call<ResponseObject<PageResponse<AudioBookResponse>>> getAudioBooksBySearch(String searchTxt){return coreAppInterface.getAudioBooksBySearch(searchTxt);}
 
+    public Call<ResponseObject<PageResponse<AudioBookResponse>>> getAudioBooksBySearch(String searchTxt){return coreAppInterface.getAudioBooksBySearch(searchTxt);}
 
     public Call<ResponseObject<AudioBookCreateResponse>> createAudioBook(String token, AudioBookCreateRequest audioBookCreateRequest) {
         return coreAppInterface.createAudioBook("Bearer " + token, audioBookCreateRequest);

@@ -18,7 +18,9 @@ public class UserResponse {
     private String dateOfBirth;
 
     private Instant preniumExpiry;
+
     private String imageUrl;
+
     private String displayName;
 
     private boolean premiumStatus;

@@ -174,83 +174,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Review"
+                android:text="Reviews"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#000000" />
 
-            <!-- Reviewer Info -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <!-- Add Rating Button -->
+            <Button
+                android:id="@+id/add_rating_button"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:orientation="horizontal"
-                android:padding="12dp"
-                android:background="#F8F8F8"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:id="@+id/reviewer_image"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/placeholder_reviewer"
-                    android:contentDescription="Reviewer image"
-                    android:scaleType="centerCrop" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="12dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/reviewer_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ronald Richards"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#000000" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <RatingBar
-                            android:id="@+id/review_rating"
-                            style="?android:attr/ratingBarStyleSmall"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:numStars="5"
-                            android:rating="4.0"
-                            android:isIndicator="true" />
-
-                        <TextView
-                            android:id="@+id/review_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="3 days ago"
-                            android:textColor="#666666"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Review Text -->
-            <TextView
-                android:id="@+id/review_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                android:layout_marginTop="8dp"
+                android:text="Add Rating"
                 android:textSize="14sp"
-                android:textColor="#666666"
-                android:lineSpacingExtra="4dp" />
+                android:backgroundTint="#4838D1"
+                android:textColor="#FFFFFF" />
+
+            <!-- Reviews ViewPager -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/reviews_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" />
 
             <!-- See More Button -->
             <TextView
