@@ -12,7 +12,10 @@ import com.example.audiobook.dto.response.AudioBookResponse;
 import com.example.audiobook.dto.response.PageResponse;
 import com.example.audiobook.dto.response.UploadResponse;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -21,8 +24,14 @@ public class AudioBookRepository {
     private CoreAppInterface coreAppInterface;
 
     public AudioBookRepository() {
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(120, TimeUnit.SECONDS)
+                .writeTimeout(120, TimeUnit.SECONDS)
+                .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         coreAppInterface = retrofit.create(CoreAppInterface.class);

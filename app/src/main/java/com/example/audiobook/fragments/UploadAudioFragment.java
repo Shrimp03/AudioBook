@@ -61,7 +61,7 @@ import retrofit2.http.Part;
 public class UploadAudioFragment extends Fragment {
 
     private static final String TAG = "UploadAudioFragment";
-    private static final long MAX_FILE_SIZE = 15 * 1024 * 1024; 
+    private static final long MAX_FILE_SIZE = 15 * 1024 * 1024;
     private Button btnSelectImage, btnUploadImage, btnSelectFemaleAudio, btnUploadFemaleAudio,
             btnSelectMaleAudio, btnUploadMaleAudio, btnCreateAudiobook;
     private EditText etTitle, etAuthor, etPublishYear, etDescription, etDuration,
