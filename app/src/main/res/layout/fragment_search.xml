@@ -44,7 +44,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tìm Kiếm Sách Nói"
+            android:text="Find Other AudioBook"
             android:textColor="#010104"
             android:textSize="24dp"
             android:textStyle="bold"
@@ -61,8 +61,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:hint="Tìm sách hoặc tác giả..."
+                android:hint="Search by title or author..."
                 android:textColorHint="#B8B8C7"
+                android:textColor="@color/Neutral_80"
                 android:background="@null"
                 android:padding="8dp" />
             <ImageButton
@@ -88,7 +89,6 @@
         android:paddingBottom="15dp"
         tools:ignore="MissingConstraints" />
 
-    <!-- Thêm layout hiển thị khi không có kết quả -->
     <LinearLayout
         android:id="@+id/no_results_layout"
         android:layout_width="match_parent"
@@ -97,7 +97,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:orientation="vertical"
         android:gravity="center"
-        android:visibility="gone"> <!-- Ẩn mặc định -->
+        android:visibility="gone">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Không tìm thấy kết quả"
+            android:text="@string/not_find_book"
             android:textColor="#010104"
             android:textSize="18sp"
             android:layout_marginTop="16dp" />

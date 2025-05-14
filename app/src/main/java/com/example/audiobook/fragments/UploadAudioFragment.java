@@ -39,6 +39,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -717,6 +718,17 @@ public class UploadAudioFragment extends Fragment {
         }
         if (publishYear.isEmpty()) {
             etPublishYear.setError("Vui lòng nhập năm xuất bản");
+            return false;
+        }
+        try {
+            int year = Integer.parseInt(publishYear);
+            int currentYear = Calendar.getInstance().get(Calendar.YEAR); // Lấy năm hiện tại động
+            if (year < 1800 || year > currentYear) {
+                etPublishYear.setError("Năm xuất bản phải từ 1800 đến " + currentYear);
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            etPublishYear.setError("Năm xuất bản phải là số hợp lệ");
             return false;
         }
         if (description.isEmpty()) {

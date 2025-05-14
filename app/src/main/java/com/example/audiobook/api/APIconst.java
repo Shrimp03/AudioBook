@@ -30,8 +30,8 @@ public class APIconst {
     public static final String GET_AUDIO_BOOK_BY_SEARCH = BASE_URL + "/api/audio-book/search";
     public static final String GET_AUDIO_BOOK_BY_SEARCH_WITH_USER = BASE_URL + "/api/audio-book/search-by-user";
     public static final String CREATE_AUDIO_BOOK = BASE_URL + "/api/audio-book/create";
-    public static final String UPDATE_AUDIO_BOOK = BASE_URL + "/api/audio-book/update";
-    public static final String DELETE_AUDIO_BOOK = BASE_URL + "/api/audio-book/delete";
+    public static final String UPDATE_AUDIO_BOOK = BASE_URL + "/api/audio-book/update/{id}";
+    public static final String DELETE_AUDIO_BOOK = BASE_URL + "/api/audio-book/delete/{id}";
 
     // Rating
     public static final String GET_RATINGS = BASE_URL + "/api/rating/";

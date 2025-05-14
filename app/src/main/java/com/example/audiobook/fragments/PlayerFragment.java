@@ -169,7 +169,7 @@ public class PlayerFragment extends DialogFragment {
                 bookAuthor.setText(author);
             }
             if (coverImage != null && getContext() != null) {
-                String imageUrl = APIconst.BASE_URL + "/" + coverImage;
+                String imageUrl =  coverImage;
                 Glide.with(getContext())
                         .load(imageUrl)
                         .placeholder(R.drawable.placeholder_book)
@@ -177,7 +177,7 @@ public class PlayerFragment extends DialogFragment {
                         .into(bookCover);
             }
             if (maleAudioUrl != null) {
-                playAudio(APIconst.BASE_URL + "/" + maleAudioUrl);
+                playAudio( maleAudioUrl);
                 isMaleVoice = true;
                 changeVoiceButton.setText("Male Voice");
             }
@@ -383,7 +383,7 @@ public class PlayerFragment extends DialogFragment {
 
             // Switch voice
             isMaleVoice = !isMaleVoice;
-            String newAudioUrl = isMaleVoice ? APIconst.BASE_URL + "/" + maleAudioUrl : APIconst.BASE_URL + "/" + femaleAudioUrl;
+            String newAudioUrl = isMaleVoice ?  maleAudioUrl :  femaleAudioUrl;
             changeVoiceButton.setText(isMaleVoice ? "Male Voice" : "Female Voice");
 
             try {
@@ -488,7 +488,7 @@ public class PlayerFragment extends DialogFragment {
             return;
         }
 
-        String audioUrl = isMaleVoice ? APIconst.BASE_URL + "/" + maleAudioUrl : APIconst.BASE_URL + "/" + femaleAudioUrl;
+        String audioUrl = isMaleVoice ?  maleAudioUrl :  femaleAudioUrl;
         if (audioUrl == null || audioUrl.isEmpty()) {
             showToast("No audio URL available");
             return;

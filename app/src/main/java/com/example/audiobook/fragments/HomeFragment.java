@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +32,8 @@ public class HomeFragment extends Fragment {
     // Log tag for debugging
     private static final String TAG = "HomeFragment";
     private ImageView settingImageView;
+    private TextView recommendBtn;
+    private TextView newReleaseBtn;
 
     // UI components
     private RecyclerView categoryRecyclerView;
@@ -58,6 +62,37 @@ public class HomeFragment extends Fragment {
                     .getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container, settingFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+
+        recommendBtn = view.findViewById(R.id.home_recommend_see_more);
+        newReleaseBtn = view.findViewById(R.id.home_release_see_more);
+
+        recommendBtn.setOnClickListener( v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("listId", "recommend");
+            bundle.putString("listName", "Recommend For You");
+            AudioBookListFragment audioBookListFragment = new AudioBookListFragment();
+            audioBookListFragment.setArguments(bundle);
+            requireActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, audioBookListFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+
+        newReleaseBtn.setOnClickListener( v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("listId", "new_release");
+            bundle.putString("listName", "New Release");
+            AudioBookListFragment audioBookListFragment = new AudioBookListFragment();
+            audioBookListFragment.setArguments(bundle);
+            requireActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, audioBookListFragment)
                     .addToBackStack(null)
                     .commit();
         });

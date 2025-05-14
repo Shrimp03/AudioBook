@@ -114,6 +114,12 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        profileViewModel.getEmail().observe(this, email -> {
+            if (email != null) {
+                tvEmail.setText(email);
+            }
+        });
+
         profileViewModel.getDisplayName().observe(this, displayName -> {
             if (displayName != null) {
                 tvDisplayName.setText(displayName);

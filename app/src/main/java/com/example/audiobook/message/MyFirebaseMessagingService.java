@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -37,6 +38,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Log để debug
         Log.d("FCM", "Message received at: " + System.currentTimeMillis());
 
+        // Kiểm tra nếu thông báo bị tắt trong cài đặt
+        if (!isNotificationsEnabled()) {
+            Log.d("FCM", "Notifications are disabled in settings. Ignoring message.");
+            return; // Không hiển thị thông báo nếu người dùng đã tắt
+        }
+
         // Xử lý data payload
         Map<String, String> data = remoteMessage.getData();
         if (!data.isEmpty()) {
@@ -56,6 +63,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             // Hiển thị notification ngay lập tức
             showNotificationImmediately(title, body, data);
         }
+    }
+
+    /**
+     * Kiểm tra xem người dùng đã bật thông báo hay chưa
+     * @return true nếu thông báo được bật, false nếu đã tắt
+     */
+    private boolean isNotificationsEnabled() {
+        SharedPreferences prefs = getSharedPreferences(
+                "notifications_prefs", Context.MODE_PRIVATE);
+        return prefs.getBoolean("notification_enabled", true);
     }
 
     private void showNotificationImmediately(String title, String body, Map<String, String> data) {

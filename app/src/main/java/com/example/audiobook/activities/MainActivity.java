@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
                     // Log and display the token
                     Log.d(TAG, "FCM Token: " + token);
-                    Toast.makeText(MainActivity.this, "FCM Token: " + token, Toast.LENGTH_LONG).show();
+//                    Toast.makeText(MainActivity.this, "FCM Token: " + token, Toast.LENGTH_LONG).show();
                 });
     }
 

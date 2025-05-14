@@ -38,7 +38,7 @@
         android:id="@+id/library_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Thư Viện Của Bạn"
+        android:text="My Library"
         android:textColor="#010104"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -62,8 +62,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:hint="Tìm trong thư viện..."
+            android:hint="Search in my library..."
             android:textColorHint="#B8B8C7"
+            android:textColor="@color/Neutral_80"
             android:background="@null"
             android:padding="8dp" />
         <ImageButton
@@ -75,7 +76,6 @@
             android:contentDescription="Tìm kiếm" />
     </LinearLayout>
 
-    <!-- Thêm layout hiển thị khi không có kết quả -->
     <LinearLayout
         android:id="@+id/no_results_layout"
         android:layout_width="match_parent"
@@ -89,11 +89,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_menu_info_details"
-            android:contentDescription="Không có kết quả" />
+            android:contentDescription="Not Result" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Không tìm thấy sách trong thư viện"
+            android:text="@string/not_find_book"
             android:textColor="#010104"
             android:textSize="18sp"
             android:layout_marginTop="16dp" />

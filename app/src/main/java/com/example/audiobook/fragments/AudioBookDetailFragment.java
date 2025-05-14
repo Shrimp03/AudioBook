@@ -140,7 +140,7 @@ public class AudioBookDetailFragment extends Fragment {
     // Loads the cover image using Glide
     private void loadCoverImage(String coverImage) {
         if (coverImage != null && getContext() != null) {
-            String imageUrl = APIconst.BASE_URL + "/" + coverImage;
+            String imageUrl =  coverImage;
             Glide.with(getContext())
                     .load(imageUrl)
                     .placeholder(R.drawable.placeholder_book)
