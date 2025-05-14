@@ -3,8 +3,10 @@ package com.example.audiobook.api;
 import com.example.audiobook.dto.request.FCMTokenRequest;
 import com.example.audiobook.dto.request.AudioBookCreateRequest;
 import com.example.audiobook.dto.request.LoginRequest;
+import com.example.audiobook.dto.request.RatingRequest;
 import com.example.audiobook.dto.request.RegisterRequest;
 import com.example.audiobook.dto.response.AudioBookCreateResponse;
+import com.example.audiobook.dto.response.RatingResponse;
 import com.example.audiobook.dto.response.UploadResponse;
 import com.example.audiobook.dto.response.CategoryResponse;
 import com.example.audiobook.dto.response.LoginResponse;
@@ -17,6 +19,7 @@ import com.google.gson.GsonBuilder;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -81,6 +84,7 @@ public interface CoreAppInterface {
 
     @GET(APIconst.GET_AUDIO_BOOK_BY_SEARCH_WITH_USER)
     Call<ResponseObject<PageResponse<AudioBookResponse>>> getAudioBooksBySearchWithUser(@Header("Authorization") String authorization, @Query("searchTxt") String searchTxt);
+
     @GET(APIconst.GET_AUDIO_BOOKS_BY_CATEGORY_ID)
     Call<ResponseObject<PageResponse<AudioBookResponse>>> getAudioBooksByCategoryId(@Path("categoryId") String categoryId);
 
@@ -92,10 +96,18 @@ public interface CoreAppInterface {
 
     @POST(APIconst.CREATE_AUDIO_BOOK)
     Call<ResponseObject<AudioBookCreateResponse>> createAudioBook(@Header("Authorization") String authorization, @Body AudioBookCreateRequest audioBookCreateRequest);
+
     @POST(APIconst.UPDATE_AUDIO_BOOK)
     Call<ResponseObject<AudioBookResponse>> updateAudioBook(@Header("Authorization") String authorization, @Body AudioBookCreateRequest audioBookCreateRequest, @Path("id") String id);
+
     @POST(APIconst.DELETE_AUDIO_BOOK)
     Call<ResponseObject> deleteAudioBook(@Header("Authorization") String authorization, @Path("id") String id);
+
+    @GET(APIconst.GET_RATINGS)
+    Call<ResponseObject<PageResponse<RatingResponse>>> getRatings(@Query("page") int page, @Query("size") int size, @Query("audioBookId") UUID audioBookId);
+
+    @POST(APIconst.SUBMIT_RATING)
+    Call<ResponseObject<String>> submitRating(@Header("Authorization") String token, @Body RatingRequest request);
 
     @Multipart
     @POST(APIconst.UPLOAD_IMAGES_AUDIO_BOOK)

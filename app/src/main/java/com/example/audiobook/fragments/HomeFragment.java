@@ -89,7 +89,6 @@ public class HomeFragment extends Fragment {
         categoryAdapter = new CategoryAdapter(new ArrayList<>(), category -> navigateToCategoryDetail(category.getId(), category.getName()));
         categoryRecyclerView.setAdapter(categoryAdapter);
 
-
         // Initialize recommended audiobooks RecyclerView
         recommendAudioBookRecyclerView = view.findViewById(R.id.recommend_recycler_view);
         recommendAudioBookRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));

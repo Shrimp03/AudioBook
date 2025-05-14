@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rate this Audiobook"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#000000" />
+
+    <RatingBar
+        android:id="@+id/rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:numStars="5"
+        android:stepSize="1.0"
+        android:rating="0" />
+
+    <EditText
+        android:id="@+id/comment_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="Write your comment (max 75 characters)"
+        android:maxLength="75"
+        android:inputType="textMultiLine"
+        android:lines="3"
+        android:minLines="3"
+        android:gravity="top|start"
+        android:background="@drawable/edit_text_border" />
+
+    <TextView
+        android:id="@+id/char_count_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="0/75"
+        android:textSize="12sp"
+        android:textColor="#666666"
+        android:layout_gravity="end" />
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="end"
+        android:text="Submit"
+        android:enabled="false"
+        android:backgroundTint="#4838D1"
+        android:textColor="#FFFFFF" />
+
+</LinearLayout>
