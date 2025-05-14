@@ -62,7 +62,7 @@ import retrofit2.http.Part;
 public class UpdateAudioFragment extends Fragment {
 
     private static final String TAG = "UpdateAudioFragment";
-    private static final long MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
+    private static final long MAX_FILE_SIZE = 15 * 1024 * 1024;
     private Button btnSelectImage, btnUploadImage, btnSelectFemaleAudio, btnUploadFemaleAudio,
             btnSelectMaleAudio, btnUploadMaleAudio, btnUpdateAudiobook;
     private EditText etTitle, etAuthor, etPublishYear, etDescription, etDuration,
@@ -352,7 +352,7 @@ public class UpdateAudioFragment extends Fragment {
             }
 
             if (file.length() > MAX_FILE_SIZE) {
-                Toast.makeText(getContext(), "File ảnh quá lớn (giới hạn 20MB)", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "File ảnh quá lớn (giới hạn 15MB)", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -423,7 +423,7 @@ public class UpdateAudioFragment extends Fragment {
             }
 
             if (file.length() > MAX_FILE_SIZE) {
-                Toast.makeText(getContext(), "File MP3 quá lớn (giới hạn 20MB)", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "File MP3 quá lớn (giới hạn 15MB)", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -522,7 +522,7 @@ public class UpdateAudioFragment extends Fragment {
             }
 
             if (file.length() > MAX_FILE_SIZE) {
-                Toast.makeText(getContext(), "File MP3 quá lớn (giới hạn 20MB)", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "File MP3 quá lớn (giới hạn 15MB)", Toast.LENGTH_SHORT).show();
                 return;
             }
 

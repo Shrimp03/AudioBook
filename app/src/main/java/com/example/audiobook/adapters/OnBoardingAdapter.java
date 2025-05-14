@@ -9,8 +9,8 @@ import com.example.audiobook.fragments.OnBoardingItemFragment;
 public class OnBoardingAdapter extends FragmentStateAdapter {
 
     private static final int PAGE_COUNT = 3;
-    private static final String[] TITLES = {"Item 1", "Item 2", "Item 3"};
-    private static final String[] DESCRIPTIONS = {"hello", "hello2", "hello3"};
+    private static final String[] TITLES = {"Discover the World of Audiobooks", "Flexible Listening Experience", "Personalized for You"};
+    private static final String[] DESCRIPTIONS = {"Access thousands of high-quality audiobooks anytime, anywhere.", "Enjoy seamless listening across all your devices.", "Get content recommendations based on your listening habits."};
     private static final String[] IMAGE_RES_NAMES = {"on_boarding_1", "on_boarding_2", "on_boarding_3"};
 
     public OnBoardingAdapter(@NonNull FragmentActivity fragmentActivity) {
